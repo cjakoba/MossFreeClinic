@@ -1,0 +1,46 @@
+INTRODUCTION
+
+The CVHR Training Management System is a web-based application that provides database and management for Central Virginia Horse Rescue.
+
+https://centralvahorserescue.org/
+
+The application stores horses, behaviors, and trainers. It also allows admins to assign trainers to horses and horses to behaviors.
+
+Trainers can add notes on their training sessions with horses. 
+
+The overall goal of the application is to provide a centralized place to CVHR staff to track:
+    1. Who trains which horse
+    2. Which horse(s) is(are) learning which behaviors(s)
+
+
+INSTALLATION
+
+To access the application:
+    1. Install MAMP using the following link: https://github.com/megandalster/homebasedemo2017/wiki/Setting-Up-a-MAMP-Server
+
+    2. Move the "Horse" folder (this folder) from the zip folder and into "MAMP/htdocs"
+
+    3. Follow Steps 1-3 of setting up phpMyAdmin using the following link: https://github.com/megandalster/homebasedemo2017/wiki/installation-and-reuse/
+        
+        - Import the "homebasedb.sql" file in the "database" folder here to set up the CVHR database.
+
+If you wish to see the legacy Homebase code for reference, follow all the steps in the two links provided above.
+
+INSTALLATION FOR SITEGROUND
+1. Pull the main branch
+2. Use filezilla to connect to your siteground website
+3. place all files in the public_html folder
+4. Go to the MySQL tab of siteground
+5. Create a new database and a user that can access the database
+6. Go to php my admin
+7. import homebasedb.sql into the database you created
+8. Return to siteground and navigate to the file explorer
+9. Move to the database folder
+10. Navigate to dbinfo.php
+11. Update lines 20-24 to match this, filling in the YOUR_... with the actual values:
+function connect() {
+    $host = "localhost"; 
+    $username = "YOUR_USER_NAME";
+    $password = "YOUR_USER_PASSWORD";
+    $database = "YOUR_DATABASE_NAME";
+12. Log into your site!
