@@ -12,6 +12,12 @@ $connection = mysqli_connect($servername, $username, $password, $db);
 	}
 	if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete"])) {
 		$material_id = $_POST["materialid"];
+		$sql = "DELETE FROM homebasedb WHERE materialid = '$material_id'";
+    		if ($connection->query($sql) === TRUE){
+        		echo "Educational Material has been deleted.";
+    		} else {
+        		echo "Error: " . $sql . "<br>" . $connection->error;
+   		 }
 	}
 ?>
 <!DOCTYPE html>
@@ -27,5 +33,12 @@ $connection = mysqli_connect($servername, $username, $password, $db);
 		<input type="text" id="materialid" name="materialid" value="<?php echo $material_id; ?>"<br>
 		<input type="submit" name="delete" value="Delete">	
 	</form>
+	<script>
+		function confirmDelete() {
+			var confirm("Are you sure that you want to delete this educational material?
+
+			return confirmed;
+		}
+	</script>
 </body>
 </html>
