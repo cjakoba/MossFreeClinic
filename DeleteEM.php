@@ -1,4 +1,15 @@
 <?php
+$servername = "localhost";
+$username = "homebasedb";
+$password = "homebasedb";
+$db = "homebasedb";
+$connection = mysqli_connect($servername, $username, $password, $db);
+	if (mysqli_connect_errno()){
+    		echo "Failed to connect to the database" . mysqli_connect_error();
+    		exit();
+	} else {
+    		echo "Successfully connected to the database! <br>";
+	}
 	if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete"])) {
 		$material_id = $_POST["materialid"];
 	}
