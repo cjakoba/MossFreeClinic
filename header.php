@@ -52,6 +52,7 @@
         .intro h1 {
         display: inline;
         font-size: 24px;
+        background-color: rgba(100, 189, 215, 0.5); 
         }
 
         .header-button {
@@ -109,10 +110,10 @@
     <!-- Begin Header -->
     <div class="intro"> 
         <h1>
-            <a href="https://centralvahorserescue.org/">
-            <img src="https://i0.wp.com/centralvahorserescue.org/wp-content/uploads/2021/10/cropped-10441289_779793575378834_6338759994579667054_n.png?w=250&ssl=1" alt="CVHR Logo" class="img-fluid" style="width:72px;height:72px;"> 
+            <a href="https://mossfreeclinic.org/">
+            <img src="https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-6/279357511_359989849482151_4794411504887801890_n.png?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=cfyWeXGhIBoAX_kv8Lc&_nc_ht=scontent-iad3-1.xx&oh=00_AfDnBsBlQixJtWAF9mnL11Q9Vp4pXx6XNbutxLJj_eMYNg&oe=654625C6" alt="CVHR Logo" class="img-fluid" style="width:72px;height:72px;"> 
             </a>
-            CVHR Horse Training Management System
+            LLOYD F. MOSS FREE CLINIC
         </h1>
     </div>
 
