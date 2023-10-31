@@ -10,6 +10,8 @@ $connection = mysqli_connect($servername, $username, $password, $db);
 	} else {
     		echo "Successfully connected to the database! <br>";
 	}
+	$material_id = "";
+
 	if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete"])) {
 		$material_id = $_POST["materialid"];
 		$sql = "DELETE FROM homebasedb WHERE materialid = '$material_id'";
@@ -27,6 +29,7 @@ $connection = mysqli_connect($servername, $username, $password, $db);
 	<title>Delete Educational Material</title>
 </head>
 <body>
+	<h1>Delete Educational Material</h1>
 	<form method="POST" action="">
 		<input type="hidden" name="operation" value="delete">
 		<label for="materialid">EM ID:</label>
@@ -35,7 +38,7 @@ $connection = mysqli_connect($servername, $username, $password, $db);
 	</form>
 	<script>
 		function confirmDelete() {
-			var confirm("Are you sure that you want to delete this educational material?
+			var confirmed("Are you sure that you want to delete this educational material?");
 
 			return confirmed;
 		}
