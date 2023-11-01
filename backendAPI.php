@@ -1,4 +1,5 @@
 <?php
+/* function which encodes an EM row as JSON */
 function encode($name, $date, $author, $fileType, $description, $filePath){
     $data = new stdClass();
     $data->title = $name;
@@ -10,6 +11,10 @@ function encode($name, $date, $author, $fileType, $description, $filePath){
     echo json_encode($data);
 }
 
+/** function which queries emdb database with material ID number,
+    returning EM unique to that ID,
+    and finally calls function encode() which stores EM in JSON data structure
+    **/
 function getEM($materialid, $conn){
     $stmt = $conn->prepare("SELECT * FROM emdb WHERE materialid=?");
     $stmt->bind_param("i", $materialid)
@@ -17,13 +22,5 @@ function getEM($materialid, $conn){
     while($row = $results->fetch_assoc()) {
         encode($row["name"], $row["upload_date"], $row["uploaded_by"], $row["file_type"], $row["description"], $row["upload_file_path"])
     }
-
-
-
 }
-
-
-
-
-
 ?>
