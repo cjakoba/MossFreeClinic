@@ -6,7 +6,7 @@
 <html>
     <head>
         <title>
-            CVHR Horse Training Management System
+            Lloyd F. Moss Free Clinic Educational Material Database
         </title>
         <link rel="stylesheet" href="styles.css" type="text/css" />
         <style>
@@ -74,10 +74,10 @@
         <div id="container">
             <?php include('header.php'); ?>
             <div id="content">
-                <div id="content-inner"> 
-                    <h1>Welcome to the</br>Central Virginia Horse Rescue</br>Database</h1>
+                <div id="content-inner">
+                    <h1>Welcome to the</br>Lloyd F. Moss Free Clinic</br>Database</h1>
                     <p>
-                        This is the CVHR Horse Training Management System, designed to help manage horses, trainers, and training activities at the Central Virginia Horse Rescue organization. Use the navigation menu to explore the system and manage records for horses, trainers, and training sessions. If you are not a registered user, recruit, trainer, or head admin, please visit the primary Central Virginia Horse Rescue website at <a href="https://centralvahorserescue.org/" target="_blank">https://centralvahorserescue.org/</a>.
+                        This is the Lloyd F. Moss Free Clinic Database. It serves to educate patients on their condition or illness. It aims to provide them with addition knowledge so that they can better understand their diagnosis. You can search or browse for educational content. (Click on the handshake image above to get redirected to the Moss Free Clinic homepage).
                     </p>
                 </div>
             </div>
