@@ -63,7 +63,7 @@
     <div class="push"></div>
     <!-- Begin Footer -->
     <footer class="footer">
-        <p>&copy; <?php echo date('Y'); ?> Central Virginia Horse Rescue. All rights reserved.</p>
+        <p>&copy; <?php echo date('Y'); ?> Lloyd F. Moss Free Clinic. All rights reserved.</p>
     </footer>
     <!-- End Footer -->
 </body>
