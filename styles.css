@@ -44,20 +44,19 @@
     margin-right: 20px;
   }
 
-
-.intro {
+  
+  .intro {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 520px;
-    /*background: url("https://i0.wp.com/centralvahorserescue.org/wp-content/uploads/2021/12/CP1_1490.jpg?resize=768%2C512&ssl=1");*/
-    background: url("https://bloximages.chicago2.vip.townnews.com/fredericksburg.com/content/tncms/assets/v3/editorial/1/78/178c310a-f672-11ed-87c2-a79b4d2cf2e6/5bbcd8b8d0067.image.jpg?resize=1763%2C1175");
+    background: url("https://i0.wp.com/centralvahorserescue.org/wp-content/uploads/2021/12/CP1_1490.jpg?resize=768%2C512&ssl=1");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
+  }
 
   .intro h1 {
     font-family: sans-serif;
