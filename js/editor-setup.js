@@ -12,23 +12,21 @@ const editor = new EditorJS({
         },
         embed: Embed,
         },
-        data: {
-            blocks: [
-                {
-                    type: "header",
-                    data: {
-                        text: "Title",
-                        level: 1
-                    }
-                },
-            ]
-        },
+        data: {},
 });
 
+var titleInput = document.getElementById('post_title');
+
 function saveData() {
+    if (titleInput.value.trim() === '') {
+        event.preventDefault();
+        alert('Please enter a title before saving.');
+        return false;
+    }
+
     editor.save().then((outputData) => {
         console.log('Article data: ', outputData);
-        postData('save_post.php', outputData);
+        postData('save_post.php', { post_title: titleInput.value, post_content: outputData });
     }).catch((error) => {
         console.error('Saving failed: ', error);
     });
@@ -42,7 +40,10 @@ function postData(url, data) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+            post_title: data.post_title,
+            post_content: data.post_content
+        }),
     })
     .then(response => response.text()) // Expecting text response here
     .then(text => {

@@ -24,17 +24,20 @@ try {
 
 // Get JSON as a string from the request's body
 $json_str = file_get_contents('php://input');
-$title = "Placeholder Title";
+$input = json_decode($json_str, TRUE);
+$post_title = $input['post_title'];
+$post_content = json_encode($input['post_content']);
+
 $type = "blog";
 $status = "published";
 
 $stmt = $pdo->prepare("INSERT INTO em_posts (post_title, post_author, post_date, post_type, post_content, post_status) VALUES (:post_title, :post_author, NOW(), :post_type, :post_content, :post_status)");
 
 $stmt->execute([
-    'post_title' => $title,
+    'post_title' => $post_title,
     'post_author' => 1,
     'post_type' => $type,
-    'post_content' => $json_str,
+    'post_content' => $post_content,
     'post_status' => $status,
 ]); 
 

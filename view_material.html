@@ -17,10 +17,11 @@
 
                 // Loop through each post and render it using external js library
                 data.forEach(post => {
+                    const title = post.post_title;
                     const postHTML = renderer.parse(JSON.parse(post.post_content));
 
                     // Append each post to the content div
-                    document.getElementById('content').innerHTML += postHTML;
+                    document.getElementById('content').innerHTML += title + postHTML;
                 });
             })
             .catch(error => console.error('Error:', error));
