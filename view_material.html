@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Educational Material</title>
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-html@3.4.0/build/edjsHTML.js"></script>
+
+</head>
+<body>
+    <div id="content"></div>
+
+    <script>
+        fetch('fetch_posts.php')
+            .then(response => response.json())
+            .then(data => {
+                const renderer = new edjsHTML();
+
+                // Loop through each post and render it using external js library
+                data.forEach(post => {
+                    const postHTML = renderer.parse(JSON.parse(post.post_content));
+
+                    // Append each post to the content div
+                    document.getElementById('content').innerHTML += postHTML;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
+

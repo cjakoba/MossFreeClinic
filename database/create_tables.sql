@@ -34,16 +34,16 @@ CREATE TABLE IF NOT EXISTS categorydb(
     category_name VARCHAR(50)
     );
 
-CREATE TABLE IF NOT EXISTS emdb(
-    materialid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50),
-    upload_date DATETIME,
-    uploaded_by INT NOT NULL,
-    file_type VARCHAR(50),
-    description BLOB,
-    upload_file_path VARCHAR(50),
-    CONSTRAINT uploaded_by_fk
-    FOREIGN KEY (uploaded_by)
+CREATE TABLE IF NOT EXISTS em_posts(
+    post_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    post_title VARCHAR(50),
+    post_author INT(11),
+    post_date DATETIME,
+    post_type VARCHAR(20),
+    post_content LONGTEXT,
+    post_status VARCHAR(20),
+    CONSTRAINT post_author_fk
+    FOREIGN KEY (post_author)
     REFERENCES userdb (userid)
     );
 
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS em_tagdb(
     tag_id INT NOT NULL,
     CONSTRAINT materialid_fk
     FOREIGN KEY (materialid)
-    REFERENCES emdb (materialid),
+    REFERENCES em_posts (post_id),
     CONSTRAINT tag_id
     FOREIGN KEY (tag_id)
     REFERENCES tagdb (tag_id)
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS em_categorydb(
     category_id INT,
     CONSTRAINT material_id_fk
     FOREIGN KEY (materialid)
-    REFERENCES emdb (materialid),
+    REFERENCES em_posts (post_id),
     CONSTRAINT category_id_fk
     FOREIGN KEY (category_id)
     REFERENCES categorydb (category_id)
