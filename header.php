@@ -16,13 +16,13 @@
                         <img src="img/logo.png" alt="Clinic logo">
                     </a>
                     <div class="navbar-links">
-                        <a href="/patient-eligibility">Patient Eligibility</a>
-                        <a href="/clinic-services">Clinic Services</a>
-                        <a href="/get-involved">Get Involved</a>
-                        <a href="/news-events">News & Events</a>
-                        <a href="/about-us">About Us</a>
-                        <a href="/contact">Contact Us</a>
-                        <a href="/patient-portal">Patient Portal</a>
+                        <a href="https://mossfreeclinic.org/patient-eligibility/">Patient Eligibility</a>
+                        <a href="https://mossfreeclinic.org/clinic-services/">Clinic Services</a>
+                        <a href="https://mossfreeclinic.org/get-involved/">Get Involved</a>
+                        <a href="https://mossfreeclinic.org/news-events/">News & Events</a>
+                        <a href="https://mossfreeclinic.org/our-clinic/">About Us</a>
+                        <a href="https://mossfreeclinic.org/contact-us/">Contact Us</a>
+                        <a href="https://mossfreeclinic.org/patient-portal/">Patient Portal</a>
                       </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
