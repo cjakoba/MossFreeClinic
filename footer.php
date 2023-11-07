@@ -23,13 +23,6 @@
             text-decoration: underline;
         }
 
-        .footer-heading {
-            color: #aad1ff; /* Lighter shade for the heading */
-            margin-bottom: 15px;
-            border-bottom: 1px solid #aad1ff; /* Underline effect */
-            padding-bottom: 5px;
-        }
-
         .footer-logo {
             margin-bottom: 20px;
         }
@@ -57,9 +50,10 @@
 <body>
 
 <!-- Footer -->
-<footer class="footer-background">
-    <div class="container">
+<footer class="footer-background justify-content-center">
+    <div class="container col-md-11">
         <div class="row">
+
             <!-- Footer column 1 -->
             <div class="col-md">
                 <h5 class="footer-heading">Get Treatment</h5>
@@ -75,19 +69,17 @@
             </div>
 
             <!-- Footer column 3 -->
-            <!-- Add other columns as needed -->
-
-            <!-- Footer column with logo -->
             <div class="col-md text-center footer-logo">
                 <img src="img/logo-white.png" alt="Clinic Logo">
                 <div>
                     <img src="img/reward.png" alt="NAFC 2020 Standards Gold" class="footer-badge">
                 </div>
             </div>
-            <!-- Add other columns as needed -->
+
         </div>
         <div class="row footer-address">
-            <div class="col-md-12 text-center">
+            <hr class="footer-divider">
+            <div class="col-md-11 text-center">
                 ©2023 Lloyd F. Moss Free Clinic | 1301 Sam Perry Blvd. Fredericksburg, VA 22401 | (540) 582-1061
                 <br>
                 website created by The Childress Agency

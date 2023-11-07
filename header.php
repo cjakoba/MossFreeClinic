@@ -10,7 +10,7 @@
 <body>
     <header class="nav-bar">
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="https://mossfreeclinic.org">
                         <img src="img/logo.png" alt="Clinic logo">

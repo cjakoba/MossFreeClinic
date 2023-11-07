@@ -3,6 +3,8 @@ html, body {
     margin: 0;
 }
 
+/* NAVIGATION BAR */
+
 .nav-bar {
     position: sticky;
     top: 0;
@@ -21,7 +23,12 @@ html, body {
 .nav-bar a {
     margin-right: 1rem;
     text-decoration: none;
-    color: #000;
+    color: #05547f;
+    text-transform: uppercase;
+}
+
+.nav-bar a:hover {
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {
@@ -48,6 +55,7 @@ html, body {
   .dropdown:hover .dropdown-content {
     display: block;
   }
+
   
 .header {
     display: flex;
@@ -152,13 +160,6 @@ table#spacedRowTable td{
 	padding-top:12px;
 }
 
-/* LINK STYLES */
-A			{ color: #001460; text-decoration: none; img-decoration: none; }
-A:link		{ color: #018AFEE; text-decoration: none; img-decoration: none; }
-A:visited	{ color: #001460; text-decoration: none; img-decoration: none; }
-A:active	{ color: #BE0000;  }
-A:hover		{ color: #BE0000;  }
-
 /*INFO BOXES*/
 .infobox{
     border:1px solid #264576;
@@ -256,13 +257,24 @@ p.error {color: #FF0000;}
 }
 
 #content{
-    border-left:2px solid #264576;
-    border-bottom:2px solid #264576;
-    border-right:2px solid #264576;
     align:center;
     padding: 10px;
-    background:#FCFCFC;
     overflow:hidden;
+}
+
+hr {
+    border-color: #d7d8da;
+    border-width: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#title {
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #05547f;
+    margin: 0;
 }
 
 body {
@@ -294,11 +306,26 @@ main {
 /* Footer styles */
 footer {
     color: #fff; /* White text for footer */
-    background-color: #fff; /* Dark background for footer */
 }
 
 footer p {
     margin-bottom: 0; /* Remove margin below paragraph if any */
+}
+
+footer a:hover {
+    color: white;
+}
+
+.footer-heading {
+    color: #fff; 
+    margin-bottom: 15px;
+    border-bottom: 1px solid #fff; /* Underline effect */
+    padding-bottom: 5px;
+}
+
+.footer-divider {
+    color: #fff;
+    border: 2px;
 }
 
 /* Custom button styles */

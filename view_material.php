@@ -23,15 +23,10 @@
             </div>
         </div>
         <!-- Content sections -->
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- Main body content -->
-            <div class="col-lg-8">
-                <!-- Your content here -->
+            <div class="col-lg-11">
                 <div id="content"></div>
-            </div>
-            <!-- Sidebar content -->
-            <div class="col-lg-4">
-                <!-- Your sidebar here -->
             </div>
         </div>
     </div>
@@ -43,7 +38,7 @@
 
                     // Loop through each post and render it using external js library
                     data.forEach(post => {
-                        const title = post.post_title;
+                        const title = "<h1 id='title'>" + post.post_title + "</h1><hr>";
                         const postHTML = renderer.parse(JSON.parse(post.post_content));
 
                         // Append each post to the content div
