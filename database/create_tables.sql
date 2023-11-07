@@ -48,23 +48,23 @@ CREATE TABLE IF NOT EXISTS em_posts(
     );
 
 CREATE TABLE IF NOT EXISTS em_tagdb(
-    materialid INT NOT NULL,
+    post_id INT NOT NULL,
     tag_id INT NOT NULL,
-    CONSTRAINT materialid_fk
-    FOREIGN KEY (materialid)
+    CONSTRAINT em_tagdb_post_id_fk
+    FOREIGN KEY (post_id)
     REFERENCES em_posts (post_id),
-    CONSTRAINT tag_id
+    CONSTRAINT em_tagdb_tag_id_fk
     FOREIGN KEY (tag_id)
     REFERENCES tagdb (tag_id)
     );
 
 CREATE TABLE IF NOT EXISTS em_categorydb(
-    materialid INT,
+    post_id INT,
     category_id INT,
-    CONSTRAINT material_id_fk
-    FOREIGN KEY (materialid)
+    CONSTRAINT em_categorydb_post_id_fk
+    FOREIGN KEY (post_id)
     REFERENCES em_posts (post_id),
-    CONSTRAINT category_id_fk
+    CONSTRAINT em_category_category_id_fk
     FOREIGN KEY (category_id)
     REFERENCES categorydb (category_id)
     );
