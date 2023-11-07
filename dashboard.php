@@ -1,3 +1,15 @@
+<?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+include('session.php'); 
+$username = $_SESSION['username'];
+$permissions = $_SESSION['permissions'];
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
+$phone = $_SESSION['phone'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,30 +39,17 @@
         <div class="row justify-content-center">
             <!-- Main body content -->
             <div class="col-lg-11">
-                <div id="content"></div>
+                <div id="content">
+                <p>Welcome, <?php echo htmlspecialchars($username); ?>!</p>
+                <p>Permissions = <?php echo htmlspecialchars($permissions); ?>.</p>
+                </div>
             </div>
         </div>
     </div>
-    <script>
-            fetch('fetch_posts.php')
-                .then(response => response.json())
-                .then(data => {
-                    const renderer = new edjsHTML();
+    </main>
 
-                    // Loop through each post and render it using external js library
-                    data.forEach(post => {
-                        const title = "<h1 id='title'>" + post.post_title + "</h1><hr>";
-                        const postHTML = renderer.parse(JSON.parse(post.post_content));
-
-                        // Append each post to the content div
-                        document.getElementById('content').innerHTML += title + postHTML;
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        </script>
-
-</main>
 <?php include("footer.php"); ?>
 </html>
+
 
 
