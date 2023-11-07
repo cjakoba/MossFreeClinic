@@ -34,13 +34,14 @@ CREATE TABLE IF NOT EXISTS categorydb(
     category_name VARCHAR(50)
     );
 
+DROP TABLE IF EXISTS emdb;
 CREATE TABLE IF NOT EXISTS emdb(
     materialid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50),
     upload_date DATETIME,
     uploaded_by INT NOT NULL,
     file_type VARCHAR(50),
-    description BLOB,
+    description LONGTEXT,
     upload_file_path VARCHAR(50),
     CONSTRAINT uploaded_by_fk
     FOREIGN KEY (uploaded_by)

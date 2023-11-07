@@ -38,11 +38,13 @@ INSERT INTO categorydb (category_name) VALUES ("Child-Birth");
 INSERT INTO categorydb (category_name) VALUES ("Surgery");
 
 INSERT INTO emdb (name, upload_date, uploaded_by, file_type, description, upload_file_path) 
-VALUES ("Bone Diseases", "2023-10-31 12:00:00", 1, NULL, "Bones", NULL);
+VALUES ("Bone Diseases", "2023-10-31 12:00:00", 1, NULL, '{"paragraph tags":  "<p> This is a paragraph </p><p>This is another paragraph</p>"}', NULL);
 INSERT INTO emdb (name, upload_date, uploaded_by, file_type, description, upload_file_path) 
-VALUES ("Heart Surgery", "2023-10-31 12:00:00", 1, NULL, "Everything you need to know about Open Heart Surgery", NULL);
+VALUES ("Heart Surgery", "2023-10-31 12:00:00", 1, NULL, '{list: [1, 2, 3]}', NULL);
 INSERT INTO emdb (name, upload_date, uploaded_by, file_type, description, upload_file_path) 
-VALUES ("Cardiovascular Exercises", "2023-10-31 12:00:00", 1, NULL, "Best exercises for your cardiovascular system", NULL);
+VALUES ("Cardiovascular Exercises", "2023-10-31 12:00:00", 1, NULL, '{cat: "<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/RedCat_8727.jpg/1200px-RedCat_8727.jpg" alt="sleeping cat">"}', NULL);
+INSERT INTO emdb (name, upload_date, uploaded_by, file_type, description, upload_file_path) 
+VALUES ("Cardiovascular Exercises", "2023-10-31 12:00:00", 1, NULL, '{google: "<a href="https://www.google.com">Google!</a>"}', NULL);
 
 INSERT INTO em_tagdb (materialid, tag_id) VALUES (1,1);
 INSERT INTO em_tagdb (materialid, tag_id) VALUES (1,2);
