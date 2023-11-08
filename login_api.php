@@ -32,14 +32,14 @@ if (isset($_POST['submit'])) {
             if (password_verify($password, $hashed_password)) {
                 $_SESSION['username'] = $username;
 
-                $permissions = 1; // Default permissions for Tier 1 (Recruit)
+                $permissions = 0; 
                 if ($userType == 'Trainer') {
-                    $permissions = 2; // Tier 2
+                    $permissions = 1; // Tier 2
                 } elseif ($userType == 'Head Trainer') {
-                    $permissions = 3; // Tier 3
-                }elseif ($userType == 'Viewer') {
+                    $permissions = 2; // Tier 3
+                } elseif ($userType == 'Viewer') {
                     $permissions = 4; // Tier 3
-                }elseif ($userType == 'Admin') {
+                } elseif ($userType == 'Admin') {
                     $permissions = 5; // Tier 3
                 }
                 $_SESSION['permissions'] = $permissions;

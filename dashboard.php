@@ -1,13 +1,7 @@
 <?php 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 include('session.php'); 
 $username = $_SESSION['username'];
 $permissions = $_SESSION['permissions'];
-$firstname = $_SESSION['firstname'];
-$lastname = $_SESSION['lastname'];
-$phone = $_SESSION['phone'];
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +36,7 @@ $phone = $_SESSION['phone'];
                 <div id="content">
                 <p>Welcome, <?php echo htmlspecialchars($username); ?>!</p>
                 <p>Permissions = <?php echo htmlspecialchars($permissions); ?>.</p>
+                <button onclick="window.location.href='post-editor.php';" type="button">Create New Post</button>
                 </div>
             </div>
         </div>
