@@ -28,6 +28,7 @@
             <div class="col-lg-11">
                 <div id="content"></div>
                 <form method="post">
+                    <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
                     <h2>Rate this educational material:</h2>
                     <span>class="star" onclick="rate(1)">&#9733;</span>
                     <span>class="star" onclick="rate(2)">&#9733;</span>
@@ -37,12 +38,34 @@
                     <button type="submit" name="Submit">Submit</button>
                 </form>
                 <?php
-                $message = "Thanks for the review.";
+                $message = "";
                 if(isset($_POST["Submit"])){
-                    echo $message;
+                    $post_id = $_POST["post_id"];
+                    $rating = $_POST["rating"];
+                    $sql_select = "SELECT COUNT(*) as count, SUM(rating) as total FROM em_posts WHERE post_id = '$post_id'";
+                    $result = mysqli_query($connection, $sql_select);
+
+                    if($result){
+                        $row = mysqli_fetch_assoc($result);
+                        $count = $row['count'];
+                        $totalRating = $row['total'];
+
+                        $newTotalRating = $totalRating + $rating;
+                        $newAvgRating = $newTotalRating / ($count + 1);
+
+                        $sql_update = "UPDATE em_posts SET rating = '$newAvgRating' WHERE post_id = '$post_id'";
+                        if(mysqli_query($connection, $sql_update)){
+                            $message = "Thanks for the review.";
+                        } else {
+                            $message = "Error updating the average rating: ". mysqli_error($connection);
+                        }
+                    } else {
+                        $message = "Error retrieving existing ratings: ". mysqli_error($connection);
+                    }
                 } else {
-                    echo "You haven't submitted a review yet.";
+                        $message = "You haven't submitted a review yet.";
                 }
+                echo $message;
                 ?>
             </div>
         </div>
@@ -63,6 +86,20 @@
                     });
                 })
                 .catch(error => console.error('Error:', error));
+
+            int selectRating = 0;
+
+            function rate(rating) {
+                selectRating = rating;
+
+                for(let i = 1; i <= 5; i++){
+                    document.getElementByID('star' + i).style.color = 'black';
+                }
+
+                for(let i = 1; i <= 5; i++){
+                    document.getElementByID('star' + i).style.color = 'yellow';
+                }
+            }
         </script>
 
 </main>
