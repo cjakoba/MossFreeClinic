@@ -39,23 +39,6 @@ include("header.php");
             <!-- Main body content -->
             <div class="col-lg-11">
                 <div id="content"></div>
-                <script>
-                 fetch('fetch_posts.php')
-                .then(response => response.json())
-                .then(data => {
-                    const renderer = new edjsHTML();
-
-                    // Loop through each post and render it using external js library
-                    data.forEach(post => {
-                        const title = "<h1 id='title'>" + post.post_title + "</h1><hr>";
-                        const postHTML = renderer.parse(JSON.parse(post.post_content));
-
-                        // Append each post to the content div
-                        document.getElementById('content').innerHTML += title + postHTML;
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-                </script>
                 <form method="post">
                     <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
                     <h2>Rate this educational material:</h2>
@@ -108,6 +91,22 @@ include("header.php");
         </div>
     </div>
     <script>
+            fetch('fetch_posts.php')
+                .then(response => response.json())
+                .then(data => {
+                    const renderer = new edjsHTML();
+
+                    // Loop through each post and render it using external js library
+                    data.forEach(post => {
+                        const title = "<h1 id='title'>" + post.post_title + "</h1><hr>";
+                        const postHTML = renderer.parse(JSON.parse(post.post_content));
+
+                        // Append each post to the content div
+                        document.getElementById('content').innerHTML += title + postHTML;
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+
             let selectRating = 0;
 
             function rate(rating) {
@@ -126,5 +125,3 @@ include("header.php");
 </main>
 <?php include("footer.php"); ?>
 </html>
-
-
