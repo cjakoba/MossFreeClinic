@@ -12,7 +12,19 @@
 </head>
 <body>
 
-<?php include("header.php"); ?>
+<?php
+$server = "localhost";
+$username = "homebasedb";
+$password = "homebasedb";
+$db = "homebasedb";
+
+$connection = mysqli_connect($server, $username, $password, $db);
+
+if(!$connection){
+    die("Connection failed: " . mysqlierror());
+}
+include("header.php"); 
+?>
 
 <!-- Main Content -->
 <main>
@@ -30,11 +42,12 @@
                 <form method="post">
                     <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
                     <h2>Rate this educational material:</h2>
-                    <span>class="star" onclick="rate(1)">&#9733;</span>
-                    <span>class="star" onclick="rate(2)">&#9733;</span>
-                    <span>class="star" onclick="rate(3)">&#9733;</span>
-                    <span>class="star" onclick="rate(4)">&#9733;</span>
-                    <span>class="star" onclick="rate(5)">&#9733;</span>
+                    <span>class="star" onclick="rate(1)" id="star1">&#9733;</span>
+                    <span>class="star" onclick="rate(2)" id="star2">&#9733;</span>
+                    <span>class="star" onclick="rate(3)" id="star3">&#9733;</span>
+                    <span>class="star" onclick="rate(4)" id="star4">&#9733;</span>
+                    <span>class="star" onclick="rate(5)" id="star5">&#9733;</span>
+                    <input type="hidden" name="rating" value=" ">
                     <button type="submit" name="Submit">Submit</button>
                 </form>
                 <?php
@@ -43,6 +56,9 @@
                     $post_id = $_POST["post_id"];
                     $rating = $_POST["rating"];
                     $sql_select = "SELECT COUNT(*) as count, SUM(rating) as total FROM em_posts WHERE post_id = '$post_id'";
+                    $stmt = mysqli_prepare($connection, $sql_select);
+                    mysqli_stmt_bind_param($stmt, "s", $post_id);
+                    mysqli_stmt_execute($stmt);
                     $result = mysqli_query($connection, $sql_select);
 
                     if($result){
@@ -54,6 +70,9 @@
                         $newAvgRating = $newTotalRating / ($count + 1);
 
                         $sql_update = "UPDATE em_posts SET rating = '$newAvgRating' WHERE post_id = '$post_id'";
+                        $stmt = mysqli_prepare($connection, $sql_select);
+                        mysqli_stmt_bind_param($stmt, "s", $post_id);
+                        mysqli_stmt_execute($stmt);
                         if(mysqli_query($connection, $sql_update)){
                             $message = "Thanks for the review.";
                         } else {
@@ -66,6 +85,7 @@
                         $message = "You haven't submitted a review yet.";
                 }
                 echo $message;
+                mysqli_close($connection);
                 ?>
             </div>
         </div>
@@ -87,19 +107,19 @@
                 })
                 .catch(error => console.error('Error:', error));
 
-            int selectRating = 0;
+            let selectRating = 0;
 
             function rate(rating) {
                 selectRating = rating;
 
                 for(let i = 1; i <= 5; i++){
-                    document.getElementByID('star' + i).style.color = 'black';
-                }
-
-                for(let i = 1; i <= 5; i++){
-                    document.getElementByID('star' + i).style.color = 'yellow';
+                    document.getElementById('star' + i).style.color = (i <= rating) ? 'yellow' : 'black';
                 }
             }
+
+            document.querySelector('form').addEventListener('submit', function () {
+                document.getElementById('rating').value = selectRating;
+            });
         </script>
 
 </main>
