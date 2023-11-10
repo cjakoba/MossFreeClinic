@@ -42,11 +42,11 @@ include("header.php");
                 <form method="post">
                     <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
                     <h2>Rate this educational material:</h2>
-                    <span>class="star" onclick="rate(1)" id="star1">&#9733;</span>
-                    <span>class="star" onclick="rate(2)" id="star2">&#9733;</span>
-                    <span>class="star" onclick="rate(3)" id="star3">&#9733;</span>
-                    <span>class="star" onclick="rate(4)" id="star4">&#9733;</span>
-                    <span>class="star" onclick="rate(5)" id="star5">&#9733;</span>
+                    <span onclick="rate(1)" id="star1">&#9733;</span>
+                    <span onclick="rate(2)" id="star2">&#9733;</span>
+                    <span onclick="rate(3)" id="star3">&#9733;</span>
+                    <span onclick="rate(4)" id="star4">&#9733;</span>
+                    <span onclick="rate(5)" id="star5">&#9733;</span>
                     <input type="hidden" name="rating" value=" ">
                     <button type="submit" name="Submit">Submit</button>
                 </form>
