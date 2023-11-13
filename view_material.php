@@ -1,3 +1,12 @@
+<?php
+    include "classes/dbh.classes.php";
+    include "classes/post-model.classes.php";
+    include "classes/post-view.classes.php";
+    $postInfo = new PostView();
+    $post_id = $_GET["id"];
+    $post_content = json_encode($postInfo->fetchContent($post_id));
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,6 +47,7 @@ include("header.php");
         <div class="row justify-content-center">
             <!-- Main body content -->
             <div class="col-lg-11">
+                <p><?php $postInfo->fetchTitle($post_id); ?></p>
                 <div id="content"></div>
                 <form method="post">
                     <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
@@ -91,37 +101,24 @@ include("header.php");
         </div>
     </div>
     <script>
-            fetch('fetch_posts.php')
-                .then(response => response.json())
-                .then(data => {
-                    const renderer = new edjsHTML();
+        const renderer = new edjsHTML();
+        const postHTML = renderer.parse(JSON.parse(<?php echo $post_content; ?>));
+        document.getElementById('content').innerHTML = postHTML.join('');
+      
+        let selectRating = 0;
 
-                    // Loop through each post and render it using external js library
-                    data.forEach(post => {
-                        const title = "<h1 id='title'>" + post.post_title + "</h1><hr>";
-                        const postHTML = renderer.parse(JSON.parse(post.post_content));
+        function rate(rating) {
+            selectRating = rating;
 
-                        // Append each post to the content div
-                        document.getElementById('content').innerHTML += title + postHTML;
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-
-            let selectRating = 0;
-
-            function rate(rating) {
-                selectRating = rating;
-
-                for(let i = 1; i <= 5; i++){
-                    document.getElementById('star' + i).style.color = (i <= rating) ? 'yellow' : 'black';
-                }
+            for(let i = 1; i <= 5; i++){
+                document.getElementById('star' + i).style.color = (i <= rating) ? 'yellow' : 'black';
             }
+        }
 
-            document.querySelector('form').addEventListener('submit', function () {
-                document.getElementById('rating').value = selectRating;
-            });
-        </script>
-
+        document.querySelector('form').addEventListener('submit', function () {
+            document.getElementById('rating').value = selectRating;
+        });
+    </script>
 </main>
 <?php include("footer.php"); ?>
 </html>
