@@ -1,3 +1,12 @@
+<?php
+    include "classes/dbh.classes.php";
+    include "classes/post-model.classes.php";
+    include "classes/post-view.classes.php";
+    $postInfo = new PostView();
+    $post_id = $_GET["id"];
+    $post_content = json_encode($postInfo->fetchContent($post_id));
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,27 +35,17 @@
         <div class="row justify-content-center">
             <!-- Main body content -->
             <div class="col-lg-11">
+                <p><?php $postInfo->fetchTitle($post_id); ?></p>
                 <div id="content"></div>
             </div>
         </div>
     </div>
+
     <script>
-            fetch('fetch_posts.php')
-                .then(response => response.json())
-                .then(data => {
-                    const renderer = new edjsHTML();
-
-                    // Loop through each post and render it using external js library
-                    data.forEach(post => {
-                        const title = "<h1 id='title'>" + post.post_title + "</h1><hr>";
-                        const postHTML = renderer.parse(JSON.parse(post.post_content));
-
-                        // Append each post to the content div
-                        document.getElementById('content').innerHTML += title + postHTML;
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        </script>
+        const renderer = new edjsHTML();
+        const postHTML = renderer.parse(JSON.parse(<?php echo $post_content; ?>));
+        document.getElementById('content').innerHTML = postHTML.join('');
+    </script>
 
 </main>
 <?php include("footer.php"); ?>
