@@ -32,8 +32,8 @@ $connection = mysqli_connect($server, $username, $password, $db);
 if(!$connection){
     die("Connection failed: " . mysqlierror());
 }
-//include("header.php"); 
-$sql_select_posts = "SELECT post_id, post_title, SUBSTRING(post_content, 1, 100) as content FROM em_posts ORDER BY post_date";
+
+$sql_select_posts = "SELECT post_id, post_title, SUBSTRING(post_content, 1, 200) as content FROM em_posts ORDER BY post_date";
 $result = mysqli_query($connection,$sql_select_posts);
 $posts = NULL;
 if($result) {
@@ -42,12 +42,14 @@ if($result) {
 //$posts = EM::getPost($connection, 0, 4);
 //$posts = mysqli_fetch_assoc($result);
 ?>
+<?php include("header.php"); ?>
 
 <!-- Main Content -->
 <body> 
 <?php if (empty($posts)) : ?>
     <p>No materials found.</p>
 <?php else : ?>
+    <h1 style="text-align: center";>Educational Material Posts</h1>
 
     <ul>
         <?php foreach ($posts as $post) : ?>
@@ -144,6 +146,8 @@ if($result) {
             document.getElementById('rating').value = selectRating;
         });
     </script> -->
-</body> 
-<?php //include("footer.php"); ?>
+</body>
+<main>
+</main>
+<?php include("footer.php"); ?>
 </html>
