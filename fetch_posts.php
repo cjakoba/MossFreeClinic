@@ -31,8 +31,6 @@ try {
 
 $stmt = $pdo->query("SELECT post_title, post_content, post_id FROM em_posts LIMIT 1");
 
-$stmt = $pdo->query("SELECT post_title, post_content, post_id FROM em_posts");
-
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Output the posts as JSON

@@ -33,13 +33,7 @@
             <div class="col-lg-8">
                 <!-- Your content here -->
                 <input id="post_title" name="post_title" placeholder="Title" required></input>
-
                 <input type="hidden" id="post_id" name="post_id" value="">
-
-                <!-- <input id="post_content" name="post_content" placeholder="Content" required></input> -->
-                <input type="hidden" id="post_id" name="post_id" value="">
-
-
                 <div id="editorjs"></div>
                 <button id="saveButton">Update Post</button>
                 <script src="js/update_post.js"></script>
@@ -54,13 +48,11 @@
 <?php include("footer.php"); ?>
 
 <script>
-
     // Fetch existing post data
     fetch('fetch_posts.php')
         .then(response => response.json())
         .then(data => {
             
-
             data.forEach(post => {
                 // Populate the title and editor with existing post data
                 document.getElementById('post_title').value = post.post_title;
@@ -71,67 +63,10 @@
 
             });
 
-            
-            data.forEach(post => {
-                            // Populate the title and editor with existing post data
-                        document.getElementById('post_title').value = post.post_title;
-                       
-                        document.getElementById('post_id').value = post.post_id;
-
-                        //editor.setData(JSON.parse(post.post_content));
-
-                        editor.render(JSON.parse(post.post_content));
-
-                        //editor.data = post.post_content;
-                        //
-
-                        
-
-                        // Initialize the EditorJS instance with the converted data
-                    
-
-
-
-
-                        //editor.render(post.post_content);
-
-                        //document.getElementById('post_content').value = post.post_content;
-
-                        //editor.data['blocks'] = JSON.parse(post.post_content);
-                    
-                      
-                 
-                        //editor.setData(JSON.parse(post.post_content));
-
-                        //editor.setData(JSON.parse(post.post_content) || {});
-
-                        
-                        // Parse the existing post content
-                        /*
-                        const parsedContent = JSON.parse(post.post_content);
-
-                        // Check if parsedContent has the required blocks property
-                        if (parsedContent && parsedContent.blocks) {
-                            // Set the data for the EditorJS instance
-                            editor.setData(parsedContent);
-                        } else {
-                            // If the blocks property is missing or invalid, set an empty array
-                            editor.setData({ blocks: [] });
-                        }
-                        */
-                        //const title = "<h1 id='title'>" + post.post_title + "</h1><hr>";
-                        //const postHTML = renderer.parse(JSON.parse(post.post_content));
-
-                        // Append each post to the content div
-                        //document.getElementById('content').innerHTML += title + postHTML;
-                    });
-
         })
-
         .catch(error => console.error('Error fetching post data:', error));
 
     // Update the button click event for updating the post
-
     document.getElementById('saveButton').addEventListener('click', function () {
         const updatedTitle = document.getElementById('post_title').value;
         const post_id = document.getElementById('post_id').value;
@@ -149,12 +84,13 @@
                 updatedContent: updatedContent,
             }),
         })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response as needed
-                console.log('Post updated:', data);
-            })
-            .catch(error => console.error('Error updating post:', error));
+        .then(response => response.json())
+
+        .then(data => {
+         // Handle the response as needed
+         console.log('Post updated:', data);
+         })
+         .catch(error => console.error('Error updating post:', error));
     });
     
 </script>
