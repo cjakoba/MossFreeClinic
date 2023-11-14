@@ -29,7 +29,16 @@ try {
 
 // Fetch the educational material posts from the database
 
-$stmt = $pdo->query("SELECT post_title, post_content, post_id FROM em_posts");
+$input = file_get_contents('php://input');
+$post_id = $input['post_id']
+
+
+$stmt = $pdo->query("SELECT post_title, post_content, post_id FROM em_posts WHERE post_id=:post_id");
+
+$stmt->execute([
+    'post_id' => $post_id,
+]);
+
 
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

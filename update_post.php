@@ -28,8 +28,6 @@ $input = json_decode($json_str, TRUE);
 $post_title = $input['post_title'];
 $post_id = $input['post_id'];
 $post_content = json_encode($input['post_content']);
-//echo "test";
-
 $type = "blog";
 $status = "published";
 
