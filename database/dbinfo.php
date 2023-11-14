@@ -15,8 +15,6 @@
  * @version updated 2/12/08
  */
 
-//Create a connection to the database
-    //If the directions are the same as the Fall 2022 semester, these credentials are correct.
 function connect() {
     $host = "localhost"; 
     $username = "homebasedb";
@@ -28,7 +26,7 @@ function connect() {
         echo "not connected to server"; 
         return mysqli_error($con);
     }
-    $selected = mysqli_select_db($con,$database);
+    $selected = mysqli_select_db($con, $database);
     if (!$selected) { 
         echo "database not selected"; 
         return mysqli_error($con); 
