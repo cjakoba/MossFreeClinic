@@ -26,14 +26,15 @@ try {
 $json_str = file_get_contents('php://input');
 $input = json_decode($json_str, TRUE);
 $post_title = $input['post_title'];
+$post_id = $input['post_id'];
 $post_content = json_encode($input['post_content']);
-
 $type = "blog";
 $status = "published";
 
-$stmt = $pdo->prepare("INSERT INTO em_posts (post_title, post_author, post_date, post_type, post_content, post_status) VALUES (:post_title, :post_author, NOW(), :post_type, :post_content, :post_status)");
+$stmt = $pdo->prepare("UPDATE em_posts SET post_title = :post_title, post_author = :post_author, post_date = NOW(), post_type = :post_type, post_content = :post_content, post_status = :post_status WHERE post_id = :post_id");
 
 $stmt->execute([
+    'post_id' => $post_id,
     'post_title' => $post_title,
     'post_author' => 1,
     'post_type' => $type,
@@ -41,5 +42,6 @@ $stmt->execute([
     'post_status' => $status,
 ]); 
 
-echo "Post has been saved with ID: " . $pdo->lastInsertId();
+echo "Post with ID " . $pdo->lastInsertId() . " has been updated";
 ?>
+
