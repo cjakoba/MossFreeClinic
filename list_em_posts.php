@@ -2,7 +2,6 @@
     include "classes/dbh.classes.php";
     include "classes/post-model.classes.php";
     include "classes/post-view.classes.php";
-	include "classes/EM.classes.php";
     //$postInfo = new PostView();
     //$post_id = $_GET["id"];
     //$post_content = json_encode($postInfo->fetchContent($post_id));
@@ -34,14 +33,14 @@ if(!$connection){
     die("Connection failed: " . mysqlierror());
 }
 //include("header.php"); 
-$sql_select_posts = "SELECT post_id, post_title, SUBSTRING(post_content, 1, 100) FROM em_posts ORDER BY post_date";
+$sql_select_posts = "SELECT post_id, post_title, SUBSTRING(post_content, 1, 100) as content FROM em_posts ORDER BY post_date";
 $result = mysqli_query($connection,$sql_select_posts);
-$posts = "";
+$posts = NULL;
 if($result) {
-	$posts = mysqli_fetch_assoc($result);
+	$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 //$posts = EM::getPost($connection, 0, 4);
-$posts = mysqli_fetch_assoc($result);
+//$posts = mysqli_fetch_assoc($result);
 ?>
 
 <!-- Main Content -->
@@ -54,8 +53,8 @@ $posts = mysqli_fetch_assoc($result);
         <?php foreach ($posts as $post) : ?>
             <li>
                 <article>
-                    <h2> <?= $post; ?></h2>
-                    <p> <?= $post; ?></p>
+                    <h2> <?= $post['post_title']; ?></h2>
+                    <p> <?= $post['content']; ?></p>
                 </article>
             </li>
         <?php endforeach; ?>
