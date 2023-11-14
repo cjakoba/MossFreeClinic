@@ -1,3 +1,10 @@
+<?php
+include('session.php');
+if ($_SESSION['permissions'] < 3)
+{
+    header('Location: dashboard.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
