@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS em_posts(
 
 CREATE TABLE IF NOT EXISTS ratingdb(
     rating_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    rating INT(1),
+    rating INT(1)
     em_post_id INT,
     CONSTRAINT em_post_rating_fk
     FOREIGN KEY (em_post_id)
