@@ -47,6 +47,15 @@ CREATE TABLE IF NOT EXISTS em_posts(
     REFERENCES userdb (userid)
     );
 
+CREATE TABLE IF NOT EXISTS ratingdb(
+    rating_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    rating INT(1)
+    em_post_id INT,
+    CONSTRAINT em_post_rating_fk
+    FOREIGN KEY (em_post_id)
+    REFERENCES em_posts (post_id)
+    );
+
 CREATE TABLE IF NOT EXISTS em_tagdb(
     post_id INT NOT NULL,
     tag_id INT NOT NULL,
