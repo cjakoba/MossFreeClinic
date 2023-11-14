@@ -3,7 +3,7 @@
         session_start();
         if (!isset($_SESSION['username'])) {
             echo "<script>alert('You must be logged in to access this website.')</script>";
-            echo "<script>window.location = 'login_form.php'</script>";
+            echo "<script>window.location = 'login.php'</script>";
             exit;
         } else {
             $now = time();
@@ -11,7 +11,7 @@
                 session_unset();
                 session_destroy();
                 echo "<script>alert('Your session has expired. Please log in again.')</script>";
-                echo "<script>window.location = 'login_form.php'</script>";
+                echo "<script>window.location = 'login.php'</script>";
                 exit;
             }
             $_SESSION['expire'] = $now + (30 * 60); // Session expires after 30 minutes of inactivity
