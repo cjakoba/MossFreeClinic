@@ -33,7 +33,6 @@ $status = "published";
 
 $stmt = $pdo->prepare("UPDATE em_posts SET post_title = :post_title, post_author = :post_author, post_date = NOW(), post_type = :post_type, post_content = :post_content, post_status = :post_status WHERE post_id = :post_id");
 
-
 $stmt->execute([
     'post_id' => $post_id,
     'post_title' => $post_title,
@@ -43,6 +42,6 @@ $stmt->execute([
     'post_status' => $status,
 ]); 
 
-echo "Post has been saved with ID: " . $pdo->lastInsertId();
+echo "Post with ID " . $pdo->lastInsertId() . " has been updated";
 ?>
 
