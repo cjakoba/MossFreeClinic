@@ -40,7 +40,7 @@
                     data.forEach(post => {
                         const title = "<h1 id='title'>" + post.post_title + "</h1><hr>";
                         const postHTML = renderer.parse(JSON.parse(post.post_content));
-
+                        document.write(post.post_content);
                         // Append each post to the content div
                         document.getElementById('content').innerHTML += title + postHTML;
                     });

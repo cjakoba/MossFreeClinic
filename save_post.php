@@ -43,4 +43,3 @@ $stmt->execute([
 
 echo "Post has been saved with ID: " . $pdo->lastInsertId();
 ?>
-

@@ -28,10 +28,11 @@ try {
 }
 
 // Fetch the educational material posts from the database
-$stmt = $pdo->query("SELECT post_title, post_content FROM em_posts");
+$stmt = $pdo->query("SELECT post_title, post_content, post_id FROM em_posts LIMIT 1");
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Output the posts as JSON
 header('Content-Type: application/json');
+
 echo json_encode($posts);
 ?>
