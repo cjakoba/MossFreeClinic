@@ -53,10 +53,14 @@ if($result) {
 
     <ul>
         <?php foreach ($posts as $post) : ?>
+
+        <?php
+        $preview = substr($post['content'], 0, 200);    //only display the first 200 characters
+        ?>
             <li>
                 <article>
                     <h2> <?= $post['post_title']; ?></h2>
-                    <p> <?= $post['content']; ?></p>
+                    <p> <?= $preview . "..."; ?></p>
                 </article>
             </li>
         <?php endforeach; ?>
