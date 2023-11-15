@@ -48,7 +48,9 @@ include("header.php");
         <div class="row justify-content-center">
             <!-- Main body content -->
             <div class="col-lg-11">
-                <p><?php $postInfo->fetchTitle($post_id); ?></p>
+                <h1 style="text-align:center;"><?php $postInfo->fetchTitle($post_id); ?></h1>
+                <?php $content = substr($post_content, 1, -1); ?>
+                <p style="text-align:center;"><?php echo $content; ?></p>
                 <div id="content"></div>
                 <form method="post">
                     <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
@@ -115,7 +117,6 @@ include("header.php");
                 document.getElementById('star' + i).style.color = (i <= rating) ? 'yellow' : 'black';
             }
         }
-
         document.querySelector('form').addEventListener('submit', function () {
             document.getElementById('rating').value = selectRating;
         });
