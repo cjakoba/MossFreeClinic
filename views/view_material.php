@@ -79,7 +79,6 @@ if (isset($_POST["Submit"])) {
 } else {
     $message = "You haven't submitted a review yet.";
 }
-echo $message;
 mysqli_close($connection);
 
 $postInfo = new PostView();
@@ -101,16 +100,18 @@ $post_content = json_encode($postInfo->fetchContent($post_id));
     <main>
         <div class="container my-4">
             <!-- Page heading and sub-heading -->
-            <div class="row mb-4">
-                <div class="col-12">
+            <div class="row mb-2 justify-content-center">
+                <div class="col-11">
+                    <h1 id="title"><?php $postInfo->fetchTitle($post_id); ?></h1>
+                    <hr>
                 </div>
             </div>
             <!-- Content sections -->
             <div class="row justify-content-center">
                 <!-- Main body content -->
                 <div class="col-lg-11">
-                    <p><?php $postInfo->fetchTitle($post_id); ?></p>
                     <div id="content"></div>
+                    <br>
                     <form method="post">
                         <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
                         <h2>Rate this post:</h2>
@@ -120,8 +121,9 @@ $post_content = json_encode($postInfo->fetchContent($post_id));
                         <span onclick="rate(4)" id="star4">&#9733;</span>
                         <span onclick="rate(5)" id="star5">&#9733;</span>
                         <input type="hidden" name="rating" value=" ">
-                        <button type="submit" name="Submit">Submit</button>
+                        <button type="submit" name="Submit" class="btn btn-primary">Submit</button>
                     </form>
+                    <?php echo $message ?>
                 </div>
             </div>
         </div>

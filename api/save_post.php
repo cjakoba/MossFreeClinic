@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 $host = 'localhost';
 $db   = 'homebasedb';
 $user = 'homebasedb';
@@ -41,5 +37,6 @@ $stmt->execute([
     'post_status' => $status,
 ]); 
 
-echo "Post has been saved with ID: " . $pdo->lastInsertId();
+// Redirect after successful save to view newly created post
+echo $pdo->lastInsertId();
 ?>

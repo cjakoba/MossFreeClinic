@@ -1,3 +1,13 @@
+<?php
+require_once '../classes/session-manager.classes.php';
+$sessionManager = new SessionManager();
+$sessionManager->startSession();
+$sessionManager->checkLogin();
+
+$username = $sessionManager->getSessionData('username');
+$permissions = $sessionManager->getSessionData('user_id');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,27 +22,24 @@
     <main>
         <div class="container my-4">
             <!-- Page heading and sub-heading -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h1>Edit Post</h1>
+            <div class="row mb-2 justify-content-center">
+                <div class="col-11">
+                    <input id="post-editor-title" class="post-title" name="post_title" required>
+                    <hr>
                 </div>
             </div>
-            <!-- Content sections -->
-            <div class="row">
-                <!-- Main body content -->
-                <div class="col-lg-8">
-                    <!-- Your content here -->
-                    <input id="post_title" name="post_title" placeholder="Title" required></input>
+
+            <!-- Main content -->
+            <div class="row justify-content-center">
+                <div class="col-11">
                     <input type="hidden" id="post_id" name="post_id" value="">
                     <div id="editorjs"></div>
-                    <button id="saveButton">Update Post</button>
+                    <!-- Save Post -->
+                    <button id="saveButton" class="btn btn-primary">Update Post</button>
                     <script src="../js/update_post.js"></script>
                 </div>
-                <!-- Sidebar content -->
-                <div class="col-lg-4">
-                    <!-- Your sidebar here -->
-                </div>
             </div>
+
         </div>
     </main>
 
@@ -52,7 +59,7 @@
 
             data.forEach(post => {
                 // Populate the title and editor with existing post data
-                document.getElementById('post_title').value = post.post_title;
+                document.getElementById('post-editor-title').value = post.post_title;
 
                 document.getElementById('post_id').value = post.post_id;
 
