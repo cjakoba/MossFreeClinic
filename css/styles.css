@@ -1,0 +1,428 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* NAVIGATION BAR */
+
+.nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.nav-bar a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #05547f;
+    text-transform: uppercase;
+}
+
+.nav-bar a:hover {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .nav-bar a {
+        display: none;
+    }
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+  }
+  
+  .header .logo {
+    font-size: 40px;
+    font-family: sans-serif;
+    color: #000;
+    text-decoration: none;
+    margin-left: 30px;
+  }
+
+  .header .menu-options {
+    font-size: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #f5f5f5;
+    margin-right: 20px;
+  }
+
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 520px;
+    /*background: url("https://i0.wp.com/centralvahorserescue.org/wp-content/uploads/2021/12/CP1_1490.jpg?resize=768%2C512&ssl=1");*/
+    background: url("https://bloximages.chicago2.vip.townnews.com/fredericksburg.com/content/tncms/assets/v3/editorial/1/78/178c310a-f672-11ed-87c2-a79b4d2cf2e6/5bbcd8b8d0067.image.jpg?resize=1763%2C1175");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+  .intro h1 {
+    font-family: sans-serif;
+    font-size: 40px;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+    text-align: left;
+    vertical-align: bottom;
+  }
+
+  .intro p {
+    font-family: sans-serif;
+    font-size: 40px;
+    color: #fff;
+    font-weight: bold;
+    vertical-align: bottom;
+  }
+  
+
+/* GENERAL STYLES */
+body{
+    display: flex;
+    flex-direction: column;
+    font-family: "Proxima Nova W01", sans-serif;
+    font-size: 12px;
+    color: 	#9c9ea0;
+}
+
+p {padding-left: 15px; padding-right:15px;}
+p.notes {padding-left:20px;}
+h3 {padding-left: 20px}
+
+
+/* TABLE STYLES */
+table { border-collapse:collapse; font-family:verdana, arial, sans-serif;}
+td {border: none; font-size:12px; padding:3px; }
+
+table.searchResults{ border-collapse:collapse;vertical-align:middle; font-family:verdana, arial, sans-serif; padding-left:15px;}
+td.searchResults {border: none; font-size:12px; padding-top:3px; padding-bottom:3px; padding-left:6px; padding-right:6px;}
+
+table.warningTable{border-collapse:collapse; font-family:verdana, arial, sans-serif; padding-left:0px;}
+td.warningTable{border: none; font-size:12px; padding-top:3px; padding-bottom:3px; padding-left:6px; padding-right:6px;}
+
+table#areport{
+	border-collapse:collapse;
+	vertical-align:middle;
+	font-family:verdana, arial, sans-serif;
+	padding-left:0px;
+}
+table#areport td{
+	border:none;
+	text-align:center;
+	font-size:12px;
+	padding-top:8x;
+	padding-bottom:8px;
+	padding-left:6px;
+	padding-right:6px;
+}
+
+table#spacedRowTable td{
+	padding-top:12px;
+}
+
+/*INFO BOXES*/
+.infobox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left:15px;
+    margin-right:15px;
+    padding: 4px;
+}
+
+.vacancyBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 4px;
+}
+
+.scheduleBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 4px;
+}
+
+.applicantsBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left:15px;
+    margin-right:15px;
+    padding: 4px;
+}
+
+.logBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left:15px;
+    margin-right:15px;
+    padding: 4px;
+}
+
+.anniversaryBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    padding: 4px;
+    margin-left: 15px;
+    margin-right:15px;
+}
+
+.inactiveBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    padding: 4px;
+    margin-left: 15px;
+    margin-right:15px;
+}
+
+/*WARNINGS AND ERRORS*/
+.warning{
+    border:1px solid #264576;
+    background:#FFCECE;
+    padding:4px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+p.error {color: #FF0000;}
+
+
+/* LAYOUT CONTROL IDS */
+
+#container{
+    align:center;
+    margin-right : auto;
+    margin-left : auto;
+}
+
+#header{
+    height: 0px;
+    border-left:2px solid #264576;
+    border-top:2px solid #264576;
+    border-right:2px solid #264576;
+    padding: 0px;
+/*    background:url("images/rmhHeader.gif") #FCFCFC; */
+    background-repeat:no-repeat;
+    background-position:top left;
+    overflow:hidden;
+}
+
+#navigationLinks{
+    font-size:11pt;
+    border-left:2px solid #264576;
+    border-right:2px solid #264576;
+    background:#FCFCFC;
+}
+
+#content{
+    align:center;
+    padding: 10px;
+    overflow:hidden;
+}
+
+hr {
+    border-color: #d7d8da;
+    border-width: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#title {
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #05547f;
+    margin: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* Example font, adjust as needed */
+}
+
+/* Header styles */
+header {
+    border-bottom: 1px solid #ddd; /* Light border for the bottom of the header */
+}
+
+/* Navigation styles */
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Adjust navbar padding and color */
+.navbar {
+    padding: 1rem 0;
+}
+
+/* Main content styles */
+main {
+    flex: 1;
+    background-color: #fff; /* Light gray background, similar to the example */
+    padding: 20px 0;
+}
+
+/* Footer styles */
+footer {
+    color: #fff; /* White text for footer */
+}
+
+footer p {
+    margin-bottom: 0; /* Remove margin below paragraph if any */
+}
+
+footer a:hover {
+    color: white;
+}
+
+.footer-heading {
+    color: #fff; 
+    margin-bottom: 15px;
+    border-bottom: 1px solid #fff; /* Underline effect */
+    padding-bottom: 5px;
+}
+
+.footer-divider {
+    color: #fff;
+    border: 2px;
+}
+
+.footer-background {
+    background-color: #05547f; /* Adjust the color to match your design */
+    color: white;
+    padding: 40px 0; /* Padding as needed */
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: block; /* Makes it easier to click on */
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+.footer-logo {
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    color: white;
+    margin-right: 10px;
+}
+
+.footer-logo img {
+    max-height: 100px; /* Adjust based on your logo's size */
+}
+
+.footer-address {
+    margin-top: 20px; /* Spacing from the bottom elements */
+    font-size: 0.85em;
+}
+
+.footer-badge {
+    max-width: 150px; /* Adjust the size of the badge */
+    margin: 20px 0;
+}
+/* Custom button styles */
+.btn-custom {
+    background-color: #004a99; /* Example button color, adjust as needed */
+    color: #fff; /* White text for buttons */
+    padding: .375rem .75rem; /* Padding for buttons */
+    border-radius: .25rem; /* Rounded borders for buttons */
+}
+
+/* Layout for clinic services section */
+.clinic-services {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd; /* Separator line */
+}
+
+.clinic-services > div {
+    flex: 1; /* Equal width for children */
+    margin-right: 1rem; /* Spacing between columns */
+}
+
+.clinic-services > div:last-child {
+    margin-right: 0; /* No margin for the last child */
+}
+
+/* Customizations for eligibility button */
+.eligibility-button {
+    display: inline-block;
+    margin-top: 1rem;
+    text-decoration: none;
+    background-color: #007bff; /* Blue background color */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+/* Custom badge style for gold standard */
+.gold-standard-badge {
+    background-color: gold;
+    color: black;
+    padding: .5em;
+    border-radius: .25rem;
+    font-size: .875em;
+}
+
+/* Utility classes for text alignment */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
