@@ -66,5 +66,8 @@ if($result) {
 
 <?php endif; ?>
 </body>
+<main>
+    <!-- main tags needed to to force footer to stay at the bottom of the page -->
+</main>
 <?php include("footer.php"); ?>
 </html>
