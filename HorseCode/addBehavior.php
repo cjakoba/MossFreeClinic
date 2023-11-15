@@ -1,5 +1,8 @@
 <?php
-    include_once('database/dbinfo.php');
+
+use domain\Behavior;
+
+include_once('database/dbinfo.php');
     include_once('domain/Horse.php');
     include_once('database/horsedb.php');
     include_once('domain/Behavior.php');

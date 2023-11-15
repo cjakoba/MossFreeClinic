@@ -1,5 +1,8 @@
 <?php
-    include('session.php');
+
+use domain\Behavior;
+
+include('session.php');
 ?>
 
 <?php

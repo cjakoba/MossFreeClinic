@@ -10,6 +10,8 @@
  *  oversees the editing of a behavior to be added, edited, or deleted from the database
  */
 
+use domain\Person;
+
 session_start();
 include_once('database/persondb.php');
 include_once('database/dbinfo.php');

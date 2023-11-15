@@ -5,6 +5,8 @@
  */
 
 //Some legacy code stuff that isn't being used.
+use domain\Horse;
+
 session_start();
 
 
