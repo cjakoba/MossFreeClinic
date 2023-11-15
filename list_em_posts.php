@@ -3,7 +3,6 @@
     include "classes/post-model.classes.php";
     include "classes/post-view.classes.php";
     //$postInfo = new PostView();
-    //$post_id = $_GET["id"];
     //$post_content = json_encode($postInfo->fetchContent($post_id));
 ?>
 
@@ -14,8 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lloyd F. Moss Free Clinic</title>
     <!-- editor.js plugins -->
-    <!--<script src="https://cdn.jsdelivr.net/npm/editorjs-html@3.4.0/build/edjsHTML.js"></script>
-    <!-- Bootstrap CSS  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-html@3.4.0/build/edjsHTML.js"></script>
+    <!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="styles.css" rel="stylesheet">
 </head>
@@ -33,14 +33,12 @@ if(!$connection){
     die("Connection failed: " . mysqlierror());
 }
 
-$sql_select_posts = "SELECT post_id, post_title, SUBSTRING(post_content, 1, 200) as content FROM em_posts ORDER BY post_date";
+$sql_select_posts = "SELECT post_id, post_title, post_content as content FROM em_posts ORDER BY post_date";
 $result = mysqli_query($connection,$sql_select_posts);
 $posts = NULL;
 if($result) {
 	$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
-//$posts = EM::getPost($connection, 0, 4);
-//$posts = mysqli_fetch_assoc($result);
 ?>
 <?php include("header.php"); ?>
 
@@ -59,7 +57,7 @@ if($result) {
         ?>
             <li>
                 <article>
-                    <h2> <?= $post['post_title']; ?></h2>
+                    <h2><a href="view_material.php?id=<?=$post['post_id']?>"> <?= $post['post_title']; ?></a></h2>
                     <p> <?= $preview . "..."; ?></p>
                 </article>
             </li>
@@ -68,7 +66,5 @@ if($result) {
 
 <?php endif; ?>
 </body>
-<main>
-</main>
 <?php include("footer.php"); ?>
 </html>
