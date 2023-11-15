@@ -53,12 +53,18 @@ if($result) {
         <?php foreach ($posts as $post) : ?>
 
         <?php
-        $preview = substr($post['content'], 0, 200);    //only display the first 200 characters
+        $preview = $post['content'];
+
+        //limit EM content to 200 characters
+        if (strlen($preview) >= 200) {
+            $preview = substr($post['content'], 0, 200) . "...";
+        }
         ?>
             <li>
                 <article>
+                    <!-- display EM title and content -->
                     <h2><a href="view_material.php?id=<?=$post['post_id']?>"> <?= $post['post_title']; ?></a></h2>
-                    <p> <?= $preview . "..."; ?></p>
+                    <p><?= $preview ?></p>
                 </article>
             </li>
         <?php endforeach; ?>
