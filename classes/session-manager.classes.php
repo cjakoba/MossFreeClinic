@@ -27,15 +27,24 @@ class SessionManager
 
     public function checkLogin()
     {
-        if (!isset($_SESSION['username'])) 
+        if (!isset($_SESSION['username']))
         {
             $this->redirectWithAlert('../views/login.php?error=', 'You must be logged in to access this website.');
-        } 
-        else 
+        }
+        else
         {
             $this->checkSessionExpiry();
             $this->updateSessionExpiry();
             $this->checkPermissions();
+        }
+    }
+
+    public function isLoggedIn() {
+        // Check if a specific session variable is set and not empty
+        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != '') {
+            return true;
+        } else {
+            return false;
         }
     }
 

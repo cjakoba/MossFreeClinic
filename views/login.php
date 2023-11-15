@@ -1,3 +1,13 @@
+<?php
+require_once '../classes/session-manager.classes.php';
+$sessionManager = new SessionManager();
+$sessionManager->startSession();
+if ($sessionManager->isLoggedIn())
+{
+    header('location: dashboard.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
