@@ -26,7 +26,7 @@ function saveData() {
 
     editor.save().then((outputData) => {
         console.log('Article data: ', outputData);
-        postData('save_post.php', { post_title: titleInput.value, post_content: outputData });
+        postData('../api/save_post.php', { post_title: titleInput.value, post_content: outputData });
     }).catch((error) => {
         console.error('Saving failed: ', error);
     });
