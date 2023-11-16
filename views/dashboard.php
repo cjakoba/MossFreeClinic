@@ -22,11 +22,12 @@ $permissions = $sessionManager->getSessionData('user_id');
     <main>
         <div class="container my-4">
             <!-- Page heading and sub-heading -->
-            <div class="row mb-4">
-                <div class="col-12">
+            <div class="row mb-4 justify-content-center">
+                <div class="col-11">
+                    <h1 id="title">Admin Dashboard</h1>
+                    <hr>
                 </div>
             </div>
-            <!-- Content sections -->
             <div class="row justify-content-center">
                 <!-- Main body content -->
                 <div class="col-lg-11">
@@ -34,14 +35,20 @@ $permissions = $sessionManager->getSessionData('user_id');
                         <p>Welcome, <?php echo htmlspecialchars($username); ?>!</p>
                         <p>Permissions = <?php echo htmlspecialchars($permissions); ?>.</p>
 
-                        <form action="view_material.php" method="post">
+                        <form action="edit_material.php" method="post">
                             <label for="id">Edit Post (select using ID):</label>
                             <input type="number" id="id" name ="id" min="0" max="25655">
                             <input type="submit" name="submit" class="btn btn-primary">
                         </form>
                         <br>
-                        <button onclick="window.location.href='post-editor.php';" type="button">Create New Post</button>
-                        <button onclick="window.location.href='../includes/logout.inc.php';" type="button">logout</button>
+                        <form action="view_material.php" method="post">
+                            <label for="id">View Post (select using ID):</label>
+                            <input type="number" id="id" name ="id" min="0" max="25655">
+                            <input type="submit" name="submit" class="btn btn-primary">
+                        </form>
+                        <br>
+                        <button onclick="window.location.href='post-editor.php';" type="button" class="btn btn-primary">Create New Post</button>
+                        <button onclick="window.location.href='../includes/logout.inc.php';" type="button" class="btn btn-primary">logout</button>
                     </div>
                 </div>
             </div>
