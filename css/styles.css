@@ -450,3 +450,8 @@ textarea:focus, input:focus{
 .ce-toolbar__content {
  max-width: unset;
 }
+
+/* Listing All Posts */
+#all-posts-ul {
+    list-style-type: none;
+}
