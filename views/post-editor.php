@@ -22,26 +22,29 @@ $permissions = $sessionManager->getSessionData('user_id');
     <main>
         <div class="container my-4">
             <!-- Page heading and sub-heading -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h1>New Post</h1>
+            <div class="row mb-2 justify-content-center">
+                <div class="col-11">
+                    <input id="post-editor-title" class="post-title" name="post_title" placeholder="New Post Title" required>
+                    <hr>
                 </div>
             </div>
-            <!-- Content sections -->
-            <div class="row">
-                <!-- Main body content -->
-                <div class="col-lg-8">
-                    <!-- Your content here -->
-                    <input id="post_title" name="post_title" placeholder="Title" required></input>
+
+            <!-- Main Content -->
+            <div class="row justify-content-center">
+                <div class="col-11">
                     <div id="editorjs"></div>
-                    <button id="saveButton">Save Post</button>
+
+                    <!-- Cancel Post -->
+                    <a id="cancelButton" class="btn btn-primary btn-cancel" href="dashboard.php">Cancel Post</a>
+                    <!-- Publish Post -->
+                    <a id="saveButton" class="btn btn-primary">Publish Post</a>
+                    <!-- Draft Post -->
+                    <a id="draftButton" class="btn btn-primary">Save as Draft</a>
+
                     <script src="../js/editor-setup.js"></script>
                 </div>
-                <!-- Sidebar content -->
-                <div class="col-lg-4">
-                    <!-- Your sidebar here -->
-                </div>
             </div>
+
         </div>
     </main>
 
