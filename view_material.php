@@ -52,9 +52,9 @@ include("header.php");
                 <?php $content = substr($post_content, 1, -1); ?>
                 <p style="text-align:center;"><?php echo $content; ?></p>
                 <div id="content"></div>
-                <form method="post">
+                <form method="post" style="text-align:center;">
                     <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
-                    <h2>Rate this educational material:</h2>
+                    <h2><br><br><br>Rate this educational material:</h2>
                     <span onclick="rate(1)" id="star1">&#9733;</span>
                     <span onclick="rate(2)" id="star2">&#9733;</span>
                     <span onclick="rate(3)" id="star3">&#9733;</span>
@@ -97,7 +97,7 @@ include("header.php");
                 } else {
                         $message = "You haven't submitted a review yet.";
                 }
-                echo $message;
+                echo '<p style="text-align:center">' . $message . '</p>';
                 mysqli_close($connection);
                 ?>
             </div>
