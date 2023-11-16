@@ -1,7 +1,7 @@
 <?php
-include "classes/dbh.classes.php";
-include "classes/post-model.classes.php";
-include "classes/post-view.classes.php";
+include "../classes/dbh.classes.php";
+include "../classes/post-model.classes.php";
+include "../classes/post-view.classes.php";
 //$postInfo = new PostView();
 //$post_content = json_encode($postInfo->fetchContent($post_id));
 $server = "localhost";
