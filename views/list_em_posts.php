@@ -2,25 +2,26 @@
 include "../classes/dbh.classes.php";
 include "../classes/post-model.classes.php";
 include "../classes/post-view.classes.php";
-//$postInfo = new PostView();
-//$post_content = json_encode($postInfo->fetchContent($post_id));
-$server = "localhost";
-$username = "homebasedb";
-$password = "homebasedb";
-$db = "homebasedb";
-
-$connection = mysqli_connect($server, $username, $password, $db);
-
-if(!$connection){
-    die("Connection failed: " . mysqlierror());
+include "../classes/text-utility.classes.php";
+$postView = new PostView();
+$postPerPage = 2;
+$maxPages = ceil($postView->getTotalPosts() / $postPerPage);
+var_dump($maxPages);
+$pageNumber = NULL;
+if(isset($_GET['page']))
+{
+	$pageNumber = filter_var($_GET['page'], FILTER_VALIDATE_INT, [
+		'option'=> [
+			'default'=> 1,
+			'min_range'=> 1,
+			'max_range'=> $maxPages
+		]
+	]);
+} else
+{
+	$pageNumber = 1;
 }
 
-$sql_select_posts = "SELECT post_id, post_title, post_content as content FROM em_posts ORDER BY post_date";
-$result = mysqli_query($connection,$sql_select_posts);
-$posts = NULL;
-if($result) {
-    $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
 ?>
 
 <!DOCTYPE html>
@@ -40,9 +41,6 @@ if($result) {
                 <div class="col-11">
                     <h1 id="title">Educational Material Posts</h1>
                     <hr>
-                    <?php if (empty($posts)) : ?>
-                        <h>No materials found.</h>
-                    <?php endif; ?>
                 </div>
             </div>
             <!-- Content sections -->
@@ -50,28 +48,19 @@ if($result) {
                 <!-- Main body content -->
                 <div class="col-lg-11">
                     <div id="content">
-                        <?php if (!empty($posts)) : ?>
-                            <ul id="all-posts-ul">
-                                <?php foreach ($posts as $post) : ?>
-
-                                    <?php
-                                    $preview = $post['content'];
-
-                                    //limit EM content to 200 characters
-                                    if (strlen($preview) >= 200) {
-                                        $preview = substr($post['content'], 0, 200) . "...";
-                                    }
-                                    ?>
-                                    <li>
-                                        <article>
-                                            <!-- display EM title and content -->
-                                            <h2><a href="view_material.php?id=<?=$post['post_id']?>"> <?= $post['post_title']; ?></a></h2>
-                                            <p><?= $preview ?></p>
-                                        </article>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php endif; ?>
+                        <?php $postView->fetchPagePostsTitleAndDescription($pageNumber,$postPerPage) ?>
+						<nav>
+							<?php if($pageNumber > 1):?>
+								<a href="?page=<?= $pageNumber - 1;?>">Previous</a>
+							<?php else:?>
+								Previous
+							<?php endif;?>
+							<?php if($pageNumber < $maxPages):?>
+								<a href="?page=<?= $pageNumber + 1;?>">Next</a>
+							<?php else:?>
+								Next
+							<?php endif;?>
+						</nav>
                     </div>
                 </div>
             </div>
