@@ -147,4 +147,5 @@ $post_content = json_encode($postInfo->fetchContent($post_id));
         </script>
     </main>
     <?php include 'layouts/footer.php'; ?>
+</body>
 </html>
