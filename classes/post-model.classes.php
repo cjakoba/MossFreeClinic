@@ -61,4 +61,13 @@ class PostModel extends Dbh
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+	/**
+     * Query for number of all posts in the database.
+     * @return array Associative array containing query results.
+     * @throws Exception Database query error.
+     */
+	public function getTotalPosts() 
+	{
+		return $stmt = $this->connect()->query('SELECT COUNT(*) FROM em_posts')->fetchColumn();
+	}
 }
