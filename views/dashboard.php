@@ -1,11 +1,16 @@
-<?php 
+<?php
+require_once '../classes/text-utility.classes.php';
 require_once '../classes/session-manager.classes.php';
+require_once '../classes/dbh.classes.php';
+require_once '../classes/post-model.classes.php';
+require_once '../classes/post-view.classes.php';
+
+$postView = new PostView();
+$numberOfPosts = $postView->getTotalPosts();
+
 $sessionManager = new SessionManager();
 $sessionManager->startSession();
 $sessionManager->checkLogin();
-
-$username = $sessionManager->getSessionData('username');
-$permissions = $sessionManager->getSessionData('user_id');
 ?>
 
 <!DOCTYPE html>
@@ -28,28 +33,45 @@ $permissions = $sessionManager->getSessionData('user_id');
                     <hr>
                 </div>
             </div>
+            <!-- Cards Section -->
             <div class="row justify-content-center">
-                <!-- Main body content -->
-                <div class="col-lg-11">
-                    <div id="content">
-                        <p>Welcome, <?php echo htmlspecialchars($username); ?>!</p>
-                        <p>Permissions = <?php echo htmlspecialchars($permissions); ?>.</p>
-
-                        <form action="edit_material.php" method="post">
-                            <label for="id">Edit Post (select using ID):</label>
-                            <input type="number" id="id" name ="id" min="0" max="25655">
-                            <input type="submit" name="submit" class="btn btn-primary">
-                        </form>
-                        <br>
-                        <form action="view_material.php" method="post">
-                            <label for="id">View Post (select using ID):</label>
-                            <input type="number" id="id" name ="id" min="0" max="25655">
-                            <input type="submit" name="submit" class="btn btn-primary">
-                        </form>
-                        <br>
-                        <button onclick="window.location.href='post-editor.php';" type="button" class="btn btn-primary">Create New Post</button>
-                        <button onclick="window.location.href='../includes/logout.inc.php';" type="button" class="btn btn-primary">logout</button>
+                <div class="row col-11">
+                    <div class="col-lg-4 mb-4">
+                        <div class="card" onclick="location.href='under_construction.php';">
+                            <div class="card-title">Posts</div>
+                            <div class="card-stat"><?php echo $numberOfPosts; ?> entries | <?php $postView->getTotalPostsForStatus("published"); ?> published | <?php $postView->getTotalPostsForStatus("draft"); ?> drafted</div>
+                            <div class="card-description">Edit, delete, and create new posts.</div>
+                        </div>
                     </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card" onclick="location.href='under_construction.php';">
+                            <div class="card-title">Surveys (Under Construction)</div>
+                            <div class="card-stat">1,234</div>
+                            <div class="card-description">Edit, delete, and create new surveys.</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card" onclick="location.href='under_construction.php';">
+                            <div class="card-title">Accounts (Under Construction)</div>
+                            <div class="card-stat">99.9%</div>
+                            <div class="card-description">Manage user accounts.</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card" onclick="location.href='under_construction.php';">
+                            <div class="card-title">File Management (Under Construction)</div>
+                            <div class="card-stat">99.9%</div>
+                            <div class="card-description">Upload and delete files to use throughout the site.</div>
+                        </div>
+                    </div>
+                    <!-- ... Add more cards as needed -->
+                </div>
+            </div>
+
+            <!-- Existing Content -->
+            <div class="row justify-content-center">
+                <div class="col-lg-11">
+                    <!-- Your existing content -->
                 </div>
             </div>
         </div>
@@ -58,6 +80,9 @@ $permissions = $sessionManager->getSessionData('user_id');
     <!-- Footer -->
     <?php include('layouts/footer.php'); ?>
 
+    <script>
+        // If needed, add JavaScript for more complex interactions
+    </script>
 </body>
 </html>
 

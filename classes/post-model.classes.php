@@ -70,4 +70,25 @@ class PostModel extends Dbh
 	{
 		return $stmt = $this->connect()->query('SELECT COUNT(*) FROM em_posts')->fetchColumn();
 	}
+
+    protected function getTotalPostsStatus($status)
+    {
+        $stmt = $this->connect()->prepare('SELECT COUNT(*) FROM em_posts WHERE post_status = ?;');
+
+        if (!$stmt->execute(array($status))) {
+            $stmt = null;
+            header("location: post.php?error=stmtfailed");
+            exit();
+        }
+
+        $count = $stmt->fetchColumn();
+
+        // If count is false, which means no rows were returned, then set count to 0
+        if ($count === false) {
+            header("location: post.php?error=postnotfound");
+            exit();
+        }
+
+        return $count;
+    }
 }
