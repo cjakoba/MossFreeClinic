@@ -54,15 +54,18 @@ if(isset($_GET['page']))
                     <div id="content">
 						<nav>
 							<?php if($pageNumber > 1):?>
-								<a href="?page=<?= $pageNumber - 1;?>">Previous</a>
+								<a href="?page=<?= $pageNumber - 1;?>">&#8249; Previous</a>
 							<?php else:?>
+								&#8249;
 								Previous
 							<?php endif;?>
 							<?php if($pageNumber < $maxPages):?>
-								<a href="?page=<?= $pageNumber + 1;?>">Next</a>
+								<a href="?page=<?= $pageNumber + 1;?>">Next &#8250;</a>
 							<?php else:?>
 								Next
+								&#8250;
 							<?php endif;?>
+							<br/><br/>
 						</nav>
                         <?php $postView->fetchPagePostsTitleAndDescription($pageNumber,$postPerPage,$loggedIn) ?>
 						<nav>
