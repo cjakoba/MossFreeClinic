@@ -3,6 +3,7 @@
 include '../classes/dbh.classes.php';
 include '../classes/post-model.classes.php';
 include '../classes/post-view.classes.php';
+require_once "../classes/text-utility.classes.php";
 
 
 
