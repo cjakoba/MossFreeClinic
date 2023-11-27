@@ -9,8 +9,9 @@ $sessionManager->startSession();
 $permissions = $sessionManager->getSessionData('user_id');
 $loggedIn = $sessionManager->isLoggedIn();
 $postView = new PostView();
-$postPerPage = 3;
-$maxPages = ceil($postView->getTotalPosts() / $postPerPage);
+$postPerPage = 10;
+$totalPosts = $postView->getTotalPosts();
+$maxPages = ceil($totalPosts / $postPerPage);
 $pageNumber = NULL;
 if(isset($_GET['page']))
 {
@@ -25,7 +26,6 @@ if(isset($_GET['page']))
 {
 	$pageNumber = 1;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -71,13 +71,9 @@ if(isset($_GET['page']))
 						<nav>
 							<?php if($pageNumber > 1):?>
 								<a href="?page=<?= $pageNumber - 1;?>">Previous</a>
-							<?php else:?>
-								Previous
 							<?php endif;?>
 							<?php if($pageNumber < $maxPages):?>
 								<a href="?page=<?= $pageNumber + 1;?>">Next</a>
-							<?php else:?>
-								Next
 							<?php endif;?>
 						</nav>
                     </div>
