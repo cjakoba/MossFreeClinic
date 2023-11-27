@@ -62,7 +62,7 @@ class PostView extends PostModel
             echo '<p>' . $this->fetchDescription($postInfo['post_id'], 200) . '</p>';
 			if($loggedIn) {
 				echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
-				echo '<a href="../api/delete_material.php"><button class="btn-custom">Remove</button></a><br/><br/>';
+				echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
 			}
             echo '</div>';
         }
