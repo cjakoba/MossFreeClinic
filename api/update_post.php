@@ -42,6 +42,4 @@ $stmt->execute([
     'post_status' => $status,
 ]); 
 
-echo "Post with ID " . $pdo->lastInsertId() . " has been updated";
-?>
-
+echo "Post with ID " . $post_id . " has been updated";
