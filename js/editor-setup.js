@@ -1,6 +1,8 @@
 // editor-setup.js
 const editor = new EditorJS({
+    autofocus: !0,
     holder: 'editorjs',
+    placeholder: "Type text or paste a link",
     tools: {
         header: {
             class: Header,
@@ -15,7 +17,7 @@ const editor = new EditorJS({
         data: {},
 });
 
-var titleInput = document.getElementById('post_title');
+var titleInput = document.getElementById('post-editor-title');
 
 function saveData() {
     if (titleInput.value.trim() === '') {
@@ -26,7 +28,7 @@ function saveData() {
 
     editor.save().then((outputData) => {
         console.log('Article data: ', outputData);
-        postData('save_post.php', { post_title: titleInput.value, post_content: outputData });
+        postData('../api/save_post.php', { post_title: titleInput.value, post_content: outputData });
     }).catch((error) => {
         console.error('Saving failed: ', error);
     });
@@ -47,7 +49,7 @@ function postData(url, data) {
     })
     .then(response => response.text()) // Expecting text response here
     .then(text => {
-        alert('Post saved: ' + text);
+        window.location.href = "view_material.php?id=" + text;
     })
     .catch((error) => {
         console.error('Error:', error);
