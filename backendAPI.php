@@ -23,4 +23,19 @@ function getEM($materialid, $conn){
         encode($row["name"], $row["upload_date"], $row["uploaded_by"], $row["file_type"], $row["description"], $row["upload_file_path"])
     }
 }
+
+function createTag($tagName, $conn){
+    $sql = "INSERT INTO tagdb (tag_name) VALUE ('" . $tagName . "')";
+    mysqli_query($conn, $sql);
+}
+
+function createCategory($catName, $conn){
+    $sql = "INSERT INTO categorydb (tag_name) VALUE ('" . $catName . "')";
+    mysqli_query($conn, $sql);
+}
+
+function createJuncTagEM($tagID, $catID, $conn){
+    $sql = "INSERT INTO tagdb (tag_name) VALUE ('" . $tagName . "')";
+    mysqli_query($conn, $sql);
+}
 ?>
