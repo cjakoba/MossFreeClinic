@@ -3,6 +3,7 @@
 // Include session and header of webpage
     include('session.php');
     include('header.php');
+    include('backendAPI.php');
         
     // Check if the user has the necessary permissions
     if (!isset($_SESSION['permissions']) || $_SESSION['permissions'] < 3) {
@@ -74,21 +75,15 @@
             }
             </style> 
     </head>
-    <h1>Edit Category</h1>
+    <h1>Edit category</h1>
     <?php
     // Import and establish database connection
     include_once('database/dbinfo.php');
     $connection = connect();
     // Check if new category should be created
     if (isset($_POST['editcategory']) and strcmp($_POST['editcategory'], 'C') == 0 and strlen($_POST['newcategory']) > 0){
-        // Run sql statement to add new category with name given by user
-        $sql = "INSERT INTO categorydb (category_name) VALUE ('" . $_POST['newcategory'] . "')";
-        mysqli_query($connection, $sql);
-        // Get and set editcategory as new category
-        $sql = "SELECT * FROM categorydb WHERE category_name = '" . $_POST['newcategory'] . "'";
-        $results = mysqli_query($connection, $sql);
-        $rows = mysqli_fetch_assoc($results);
-        $_POST['editcategory'] = $rows['category_id'];
+        // Run sql statement to add new category with name given by user and set category to edit to be new category
+        $_POST['editcategory'] = createcategory($_POST['newcategory'], $connection);
     }
     // Check if category to edit has been selected and if the category needs to be removed
     if (isset($_POST['editcategory']) and strcmp(substr($_POST['editcategory'], -1), 'E') == 0){
@@ -101,12 +96,8 @@
         // Delete category if secondary delete button was pressed
         else{
             // Run delete from em_categorydb
-            $sql = "DELETE FROM em_categorydb where category_id = " . $_POST['editcategory'];
-            mysqli_query($connection, $sql);
-            // Run delete from categorydb
-            $sql = "DELETE FROM categorydb where category_id = " . $_POST['editcategory'];
-            mysqli_query($connection, $sql);
-            // Unset editcategory
+            deletecategory($_POST['editcategory'], $connection);
+            // Unset category to edit
             unset($_POST['editcategory']);
         }
     }
@@ -122,8 +113,7 @@
                 // Check if the educational material and category needs to be added to em_categorydb
                 if (isset($_POST['aem' . $rows['post_id']])){
                     // Add junction to database
-                    $sql = "INSERT INTO em_categorydb(post_id, category_id) VALUES (" . $rows['post_id'] . ", " . $_POST['editcategory'] . ")";
-                    mysqli_query($connection, $sql);
+                    addCatToEM($_POST['editcategory'], $rows['post_id'], $connection);
                 }
             }
     }
@@ -145,10 +135,8 @@
                     // Check if marked for deletion
                     if (isset($_POST['em' . $rows['post_id']])){
                         // Delete em that were selected
-                        $sql = "DELETE FROM em_categorydb where post_id = ". $rows['post_id'] . " and category_id = " . $_POST['editcategory'];
-                        mysqli_query($connection, $sql);
+                        removeCatFromEM($_POST['editcategory'], $rows['post_id'], $connection);
                     }
-                    //echo "<input type='checkbox' name='em" . $rows['post_id'] . "'>" . $rows['post_title'];
                 }
             }
         }
@@ -165,8 +153,7 @@
         // Check if the category name needs to be changed
         if(isset($_POST['categoryName']) and strlen($_POST['categoryName']) > 0){
             // Update database to use new name for category
-            $sql = "update categorydb set category_name ='" . $_POST['categoryName'] . "' where category_id =" . $_POST['editcategory'];
-            $results = mysqli_query($connection, $sql);
+            editcategory($_POST['editcategory'], $_POST['categoryName'], $connection);
         }
         // Get name of category from database
         $sql = "SELECT * FROM categorydb where category_id =" . $_POST['editcategory'];

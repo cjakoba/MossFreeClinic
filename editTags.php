@@ -82,14 +82,8 @@
     $connection = connect();
     // Check if new tag should be created
     if (isset($_POST['edittag']) and strcmp($_POST['edittag'], 'C') == 0 and strlen($_POST['newtag']) > 0){
-        // Run sql statement to add new tag with name given by user
-        $sql = "INSERT INTO tagdb (tag_name) VALUE ('" . $_POST['newtag'] . "')";
-        mysqli_query($connection, $sql);
-        // Get and set edittag as new tag
-        $sql = "SELECT * FROM tagdb WHERE tag_name = '" . $_POST['newtag'] . "'";
-        $results = mysqli_query($connection, $sql);
-        $rows = mysqli_fetch_assoc($results);
-        $_POST['edittag'] = $rows['tag_id'];
+        // Run sql statement to add new tag with name given by user and set tag to edit to be new tag
+        $_POST['edittag'] = createTag($_POST['newtag'], $connection);
     }
     // Check if tag to edit has been selected and if the tag needs to be removed
     if (isset($_POST['edittag']) and strcmp(substr($_POST['edittag'], -1), 'E') == 0){
@@ -102,12 +96,8 @@
         // Delete tag if secondary delete button was pressed
         else{
             // Run delete from em_tagdb
-            $sql = "DELETE FROM em_tagdb where tag_id = " . $_POST['edittag'];
-            mysqli_query($connection, $sql);
-            // Run delete from tagdb
-            $sql = "DELETE FROM tagdb where tag_id = " . $_POST['edittag'];
-            mysqli_query($connection, $sql);
-            // Unset edittag
+            deleteTag($_POST['edittag'], $connection);
+            // Unset tag to edit
             unset($_POST['edittag']);
         }
     }
@@ -123,8 +113,7 @@
                 // Check if the educational material and tag needs to be added to em_tagdb
                 if (isset($_POST['aem' . $rows['post_id']])){
                     // Add junction to database
-                    $sql = "INSERT INTO em_tagdb(post_id, tag_id) VALUES (" . $rows['post_id'] . ", " . $_POST['edittag'] . ")";
-                    mysqli_query($connection, $sql);
+                    addTagToEM($_POST['edittag'], $rows['post_id'], $connection);
                 }
             }
     }
@@ -146,10 +135,8 @@
                     // Check if marked for deletion
                     if (isset($_POST['em' . $rows['post_id']])){
                         // Delete em that were selected
-                        $sql = "DELETE FROM em_tagdb where post_id = ". $rows['post_id'] . " and tag_id = " . $_POST['edittag'];
-                        mysqli_query($connection, $sql);
+                        removeTagFromEM($_POST['edittag'], $rows['post_id'], $connection);
                     }
-                    //echo "<input type='checkbox' name='em" . $rows['post_id'] . "'>" . $rows['post_title'];
                 }
             }
         }
@@ -166,8 +153,7 @@
         // Check if the tag name needs to be changed
         if(isset($_POST['tagName']) and strlen($_POST['tagName']) > 0){
             // Update database to use new name for tag
-            $sql = "update tagdb set tag_name ='" . $_POST['tagName'] . "' where tag_id =" . $_POST['edittag'];
-            $results = mysqli_query($connection, $sql);
+            editTag($_POST['edittag'], $_POST['tagName'], $connection);
         }
         // Get name of tag from database
         $sql = "SELECT * FROM tagdb where tag_id =" . $_POST['edittag'];

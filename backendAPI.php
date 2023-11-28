@@ -29,7 +29,7 @@ function getEM($materialid, $conn){
  * Returns the id of the tag
  */
 function createTag($tagName, $conn){
-    $sql = "SELECT * from tagdb WHERE tagName = " . $tagName;
+    $sql = "SELECT * from tagdb WHERE tag_name = '" . $tagName . "'";
     $results = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_assoc($results);
     while ($rows = mysqli_fetch_assoc($results)){
@@ -37,7 +37,7 @@ function createTag($tagName, $conn){
     }
     $sql = "INSERT INTO tagdb (tag_name) VALUE ('" . $tagName . "')";
     mysqli_query($conn, $sql);
-    $sql = "SELECT * from tagdb WHERE tagName = " . $tagName;
+    $sql = "SELECT * from tagdb WHERE tag_name = '" . $tagName . "'";
     $results = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_assoc($results);
     return $rows['tag_id'];
@@ -48,15 +48,15 @@ function createTag($tagName, $conn){
  * Returns the id of the category
  */
 function createCategory($catName, $conn){
-    $sql = "SELECT * from categorydb WHERE categoryName = " . $catName;
+    $sql = "SELECT * from categorydb WHERE category_name = '" . $catName . "'";
     $results = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_assoc($results);
     while ($rows = mysqli_fetch_assoc($results)){
         return $rows['category_id'];
     }
-    $sql = "INSERT INTO categorydb (tag_name) VALUE ('" . $catName . "')";
+    $sql = "INSERT INTO categorydb (category_name) VALUE ('" . $catName . "')";
     mysqli_query($conn, $sql);
-    $sql = "SELECT * from categorydb WHERE categoryName = " . $catName;
+    $sql = "SELECT * from categorydb WHERE category_name = '" . $catName . "'";
     $results = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_assoc($results);
     return $rows['category_id'];
@@ -84,8 +84,8 @@ function addCatToEM($catID, $emID, $conn){
  * Function for deleting a tag from educational material
  * takes in the id of the tag, the id of the educational material, and the connection to the database
  */
-function deleteJuncTagEM($tagID, $emID, $conn){
-    $sql = "DELETE FROM em_tagdb WHERE tag_id == " . $tagID . " AND post_id == ". $emID;
+function removeTagFromEM($tagID, $emID, $conn){
+    $sql = "DELETE FROM em_tagdb WHERE tag_id = " . $tagID . " AND post_id = ". $emID;
     mysqli_query($conn, $sql);
 }
 
@@ -93,8 +93,8 @@ function deleteJuncTagEM($tagID, $emID, $conn){
  * Function for deleting a category from educational material
  * takes in the id of the category, the id of the educational material, and the connection to the database
  */
-function deleteJuncCatEM($catID, $emID, $conn){
-    $sql = "DELETE FROM em_categorydb WHERE tag_id == " . $catID . " AND post_id == ". $emID;
+function removeCatFromEM($catID, $emID, $conn){
+    $sql = "DELETE FROM em_categorydb WHERE category_id = " . $catID . " AND post_id = ". $emID;
     mysqli_query($conn, $sql);
 }
 
@@ -103,9 +103,9 @@ function deleteJuncCatEM($catID, $emID, $conn){
  * takes in the id of the tag, and the connection to the database
  */
 function deleteTag($tagID, $conn){
-    $sql = "DELETE FROM em_tagdb WHERE tag_id == " . $tagID;
+    $sql = "DELETE FROM em_tagdb WHERE tag_id = " . $tagID;
     mysqli_query($conn, $sql);
-    $sql = "DELETE FROM tagdb WHERE tag_id == " . $tagID;
+    $sql = "DELETE FROM tagdb WHERE tag_id = " . $tagID;
     mysqli_query($conn, $sql);
 }
 
@@ -114,9 +114,9 @@ function deleteTag($tagID, $conn){
  * takes in the id of the category, and the connection to the database
  */
 function deleteCategory($catID, $conn){
-    $sql = "DELETE FROM em_categorydb WHERE category_id == " . $catID;
+    $sql = "DELETE FROM em_categorydb WHERE category_id = " . $catID;
     mysqli_query($conn, $sql);
-    $sql = "DELETE FROM categorydb WHERE category_id == " . $catID;
+    $sql = "DELETE FROM categorydb WHERE category_id = " . $catID;
     mysqli_query($conn, $sql);
 }
 
