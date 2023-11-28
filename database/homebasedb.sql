@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS survey_responsedb;
 DROP TABLE IF EXISTS em_tagdb;
 DROP TABLE IF EXISTS em_categorydb;
 DROP TABLE IF EXISTS ratingdb;
+DROP TABLE IF EXISTS upload_db;
 DROP TABLE IF EXISTS em_posts;
 DROP TABLE IF EXISTS userdb;
 DROP TABLE IF EXISTS surveydb;
@@ -180,6 +181,19 @@ INSERT INTO `ratingdb` (`rating_id`, `rating`, `em_post_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `upload_db`
+--
+
+CREATE TABLE `upload_db` (
+  `upload_id` int(11) NOT NULL,
+  `upload_title` varchar(30) DEFAULT NULL,
+  `upload_tag` varchar(30) DEFAULT NULL,
+  `em_post_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `surveydb`
 --
 
@@ -326,6 +340,14 @@ ALTER TABLE `ratingdb`
   ADD KEY `em_post_rating_fk` (`em_post_id`);
 
 --
+-- Indexes for table `upload_db`
+--
+ALTER TABLE `upload_db`
+  ADD PRIMARY KEY (`upload_id`),
+  ADD KEY `em_post_upload_fk` (`em_post_id`);
+
+
+--
 -- Indexes for table `surveydb`
 --
 ALTER TABLE `surveydb`
@@ -383,6 +405,13 @@ ALTER TABLE `questiondb`
 --
 ALTER TABLE `ratingdb`
   MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `upload_db`
+--
+ALTER TABLE `upload_db`
+  MODIFY `upload_id` int(11) NOT NULL AUTO_INCREMENT;
+
 
 --
 -- AUTO_INCREMENT for table `surveydb`
@@ -444,6 +473,12 @@ ALTER TABLE `question_responsedb`
 --
 ALTER TABLE `ratingdb`
   ADD CONSTRAINT `em_post_rating_fk` FOREIGN KEY (`em_post_id`) REFERENCES `em_posts` (`post_id`);
+
+--
+-- Constraints for table `upload_db`
+--
+ALTER TABLE `upload_db`
+  ADD CONSTRAINT `em_post_upload_fk` FOREIGN KEY (`em_post_id`) REFERENCES `em_posts` (`post_id`);
 
 --
 -- Constraints for table `survey_questiondb`
