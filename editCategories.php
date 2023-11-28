@@ -2,8 +2,10 @@
 
 // Include session and header of webpage
     include('session.php');
-    include('header.php');
+    include('layouts/header.php');
+    include('layouts/navbar.php');
     include('backendAPI.php');
+    include_once('../classes/dbh.classes.php');
         
     // Check if the user has the necessary permissions
     if (!isset($_SESSION['permissions']) || $_SESSION['permissions'] < 3) {
@@ -260,7 +262,7 @@
     }
 }
 // Include footer of webpage
-include('footer.php'); 
+include('layouts/footer.php'); 
 ?>
 
 </html>
