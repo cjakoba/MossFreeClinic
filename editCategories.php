@@ -1,11 +1,9 @@
 <?php
 
 // Include session and header of webpage
-    include('session.php');
     include('layouts/header.php');
     include('layouts/navbar.php');
-    include('backendAPI.php');
-    include_once('../classes/dbh.classes.php');
+    include('../api/backendAPI.php');
         
     // Check if the user has the necessary permissions
     if (!isset($_SESSION['permissions']) || $_SESSION['permissions'] < 3) {
@@ -80,8 +78,12 @@
     <h1>Edit category</h1>
     <?php
     // Import and establish database connection
-    include_once('database/dbinfo.php');
-    $connection = connect();
+    //include_once('database/dbinfo.php');
+    $servername = "localhost";
+    $username = "homebasedb";
+    $password = "homebasedb";
+    $db = "homebasedb";
+    $connection = mysqli_connect($servername, $username, $password, $db);
     // Check if new category should be created
     if (isset($_POST['editcategory']) and strcmp($_POST['editcategory'], 'C') == 0 and strlen($_POST['newcategory']) > 0){
         // Run sql statement to add new category with name given by user and set category to edit to be new category
