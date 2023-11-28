@@ -89,4 +89,9 @@ class PostView extends PostModel
         return $description;
     }
 
+    public function getTotalPostsForStatus($status)
+    {
+        echo $this->getTotalPostsStatus($status);
+    }
+
 }

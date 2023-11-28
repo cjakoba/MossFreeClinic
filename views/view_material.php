@@ -1,21 +1,10 @@
 <?php
-
-include '../classes/dbh.classes.php';
-include '../classes/post-model.classes.php';
-include '../classes/post-view.classes.php';
-
-
-
-$server = "localhost";
-$username = "homebasedb";
-$password = "homebasedb";
-$db = "homebasedb";
-
-$connection = mysqli_connect($server, $username, $password, $db);
-
-if(!$connection){
-    die("Connection failed: " . mysqlierror());
-}
+include_once '../classes/dbh.classes.php';
+include_once '../classes/text-utility.classes.php';
+include_once '../classes/post-model.classes.php';
+include_once '../classes/post-view.classes.php';
+include_once '../classes/rating-model.classes.php';
+include_once '../classes/rating-controller.classes.php';
 
 // Initialize variables
 $post_id = null;
@@ -28,58 +17,13 @@ elseif (isset($_POST['submit']) && isset($_POST['id']) && is_numeric($_POST['id'
     $post_id = $_POST['id'];
 }
 
-$message = "";
+$ratingController = new RatingController();
 if (isset($_POST["Submit"])) {
     $post_id = $_POST["post_id"];
     $rating = $_POST["rating"];
 
-    // Check if there's an existing rating
-    $sql_select = "SELECT COUNT(*) as count, SUM(rating) as total FROM ratingdb WHERE em_post_id = ?";
-    $stmt = mysqli_prepare($connection, $sql_select);
-    mysqli_stmt_bind_param($stmt, "s", $post_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    if ($result) {
-        $row = mysqli_fetch_assoc($result);
-        $count = $row['count'];
-
-        if ($count > 0) {
-            // There are existing ratings, update the average
-            $totalRating = $row['total'];
-            $newTotalRating = $totalRating + $rating;
-            $newAvgRating = $newTotalRating / ($count + 1);
-
-            $sql_update = "UPDATE ratingdb SET rating = ? WHERE em_post_id = ?";
-            $update_stmt = mysqli_prepare($connection, $sql_update);
-            mysqli_stmt_bind_param($update_stmt, "ds", $newAvgRating, $post_id);
-            mysqli_stmt_execute($update_stmt);
-
-            if (mysqli_stmt_affected_rows($update_stmt) > 0) {
-                $message = "Thanks for updating the review.";
-            } else {
-                $message = "Error updating the average rating: " . mysqli_error($connection);
-            }
-        } else {
-            // No existing ratings, insert a new one
-            $sql_insert = "INSERT INTO ratingdb (rating, em_post_id) VALUES (?, ?)";
-            $insert_stmt = mysqli_prepare($connection, $sql_insert);
-            mysqli_stmt_bind_param($insert_stmt, "ds", $rating, $post_id);
-            mysqli_stmt_execute($insert_stmt);
-
-            if (mysqli_stmt_affected_rows($insert_stmt) > 0) {
-                $message = "Thanks for the new review.";
-            } else {
-                $message = "Error adding the new rating: " . mysqli_error($connection);
-            }
-        }
-    } else {
-        $message = "Error retrieving existing ratings: " . mysqli_error($connection);
-    }
-} else {
-    $message = "You haven't submitted a review yet.";
+    $ratingController->updateRating($post_id, $rating);
 }
-mysqli_close($connection);
 
 $postInfo = new PostView();
 $post_content = json_encode($postInfo->fetchContent($post_id));
@@ -123,7 +67,6 @@ $post_content = json_encode($postInfo->fetchContent($post_id));
                         <input type="hidden" name="rating" value=" ">
                         <button type="submit" name="Submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <?php echo $message ?>
                 </div>
             </div>
         </div>
