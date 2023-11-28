@@ -16,7 +16,7 @@ class LoginController extends Login
     {
         if ($this->emptyInput() == false)
         {
-            header("location: ../login.php?error=emptyinput");
+            header("location: ../views/login.php?error=emptyinput");
             exit();
         }
 
@@ -28,7 +28,7 @@ class LoginController extends Login
         }
         else
         {
-            header("location: ../login.php?error=" . $loginStatus);
+            header("location: ../views/login.php?error=" . $loginStatus);
             exit();
         }
     }

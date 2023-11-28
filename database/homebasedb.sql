@@ -272,14 +272,7 @@ INSERT INTO `userdb` (`userid`, `username`, `password`, `last_login`, `user_type
 (5, 'User4', 'Password4', '2023-10-31', 'admin'),
 (6, 'User5', 'Password5', '2023-10-31', 'admin'),
 (7, 'User6', 'Password6', '2023-10-31', 'admin'),
-(8, 'homebasedb', 'homebasedb', '2023-10-31', 'exec'),
-(9, 'User1', 'Password1', '2023-10-31', 'exec'),
-(10, 'User2', 'Password2', '2023-10-31', 'exec'),
-(11, 'User3', 'Password3', '2023-10-31', 'exec'),
-(12, 'User4', 'Password4', '2023-10-31', 'admin'),
-(13, 'User5', 'Password5', '2023-10-31', 'admin'),
-(14, 'User6', 'Password6', '2023-10-31', 'admin'),
-(15, 'homebasedb', 'homebasedb', '2023-10-31', 'exec');
+(8, 'homebasedb', 'homebasedb', '2023-10-31', 'exec');
 
 --
 -- Indexes for dumped tables

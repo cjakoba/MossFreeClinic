@@ -42,7 +42,7 @@ class PostView extends PostModel
      * @param int $postsPerPage The maximum number of posts to display per page.
      * @throws Exception when sql statement is invalid.
      */
-    public function fetchPagePostsTitleAndDescription(int $page, int $postsPerPage)
+    public function fetchPagePostsTitleAndDescription(int $page, int $postsPerPage, bool $loggedIn)
     {
         // Fetch all posts and all posts' columns within specified range.
         $postsInfo = $this->getPagePostsInfo($page, $postsPerPage);
@@ -60,6 +60,10 @@ class PostView extends PostModel
             echo '<div class="post-card">';
             echo '<h2><a href="view_material.php?id=' . $postInfo['post_id'] . '"' . ' class="post-card-link">' . $postInfo['post_title'] . '</a></h2>';
             echo '<p>' . $this->fetchDescription($postInfo['post_id'], 200) . '</p>';
+			if($loggedIn) {
+				echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
+				echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+			}
             echo '</div>';
         }
     }
