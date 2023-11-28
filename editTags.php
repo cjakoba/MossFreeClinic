@@ -3,6 +3,7 @@
 // Include session and header of webpage
     include('session.php');
     include('header.php');
+    include('backendAPI.php');
         
     // Check if the user has the necessary permissions
     if (!isset($_SESSION['permissions']) || $_SESSION['permissions'] < 3) {
