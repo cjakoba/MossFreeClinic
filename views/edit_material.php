@@ -161,7 +161,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a id="saveButton" class="btn btn-primary">Update Post</a>
                 <!-- Draft Post -->
                 <a id="draftButton" class="btn btn-primary">Save as Draft</a>
-
+                <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
                 <script>
                     // editor-setup.js
                     const editor = new EditorJS({
@@ -178,6 +178,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 inlineToolbar: true
                             },
                             embed: Embed,
+                            image: {
+                                  class: ImageTool,
+                                  config: {
+                                    endpoints: {
+                                      byFile: '../uploads', // Replace with your server endpoint for image upload
+                                      types: 'image/jpeg,image/jpg',
+                                    },
+                                  },
+                                },
                         },
                         data: <?php echo $posts[0]['post_content'] ?? null; ?>,
                     });
