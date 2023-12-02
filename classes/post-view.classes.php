@@ -21,6 +21,12 @@ class PostView extends PostModel
         $postInfo = $this->getPostInfo($post_id);
         return $postInfo[0]["post_content"];
     }
+	
+	public function fetchType($post_id)
+	{
+		$postInfo = $this->getPostInfo($post_id);
+        return $postInfo[0]["post_type"];
+	}
 
     /**
      * Fetches all paragraph text of specified post and reduces its description to specified length.

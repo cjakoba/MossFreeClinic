@@ -26,7 +26,13 @@ if (isset($_POST["Submit"])) {
 }
 
 $postInfo = new PostView();
-$post_content = json_encode($postInfo->fetchContent($post_id));
+$post_type = $postInfo->fetchType($post_id);
+if($post_type == "blog") {
+	$post_content = json_encode($postInfo->fetchContent($post_id));
+} else if($post_type == "file") {
+	$post_content = $postInfo->fetchContent($post_id);
+	//var_dump($post_content);
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,8 +78,12 @@ $post_content = json_encode($postInfo->fetchContent($post_id));
         </div>
         <script>
             const renderer = new edjsHTML();
-            const postHTML = renderer.parse(JSON.parse(<?php echo $post_content; ?>));
-            document.getElementById('content').innerHTML = postHTML.join('');
+			<?php if ($post_type == "blog"): ?>
+				const postHTML = renderer.parse(JSON.parse(<?php echo $post_content; ?>));
+				document.getElementById('content').innerHTML = postHTML.join('');
+			<?php elseif($post_type == "file"): ?>
+				document.getElementById('content').innerHTML = "<iframe src='../uploads/<?php echo $post_content; ?>' width='100%' height='600px'></iframe>";
+			<?php endif; ?>
 
             let selectRating = 0;
             function rate(rating) {
