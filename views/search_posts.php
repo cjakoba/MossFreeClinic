@@ -58,10 +58,25 @@ if(isset($_GET['page']))
 							<!-- Sumbit form -->
 							<form action="" method="GET">
 								<div class="input-group mb-3">
-									<input type="text" name="search" class="form-control" placeholder="Search...">
+									<input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search'];} ?>" class="form-control" placeholder="Search...">
 									<button type="submit">Search</button>
 								</div>
 							</form>
+
+							<?php $con = mysqli_connect("localhost", "Admin", "NAKBcXs5vGqA@pqxo2%AQe0wy", "homebasedb"); ?>
+
+							<?php if (isset($_GET['search'])) {
+								$searchString = $_GET['search'];
+								$query = "SELECT post_title FROM em_posts WHERE post_title LIKE '%$searchString%';";
+								$query_run = mysqli_query($con, $query);
+							} ?>
+
+							<?php if (mysqli_num_rows($query_run) > 0) {
+								echo "Matches were found!";
+							} else {
+								echo "No matches found.";
+							} ?>
+
 							<!-- CODE FROM LIST_EM_POSTS.PHP -->
 							<!-- <?php if($pageNumber > 1):?>
 								<a href="?page=<?= $pageNumber - 1;?>">&#8249; Previous</a>
@@ -85,6 +100,7 @@ if(isset($_GET['page']))
 							<?php if($pageNumber < $maxPages):?>
 								<a href="?page=<?= $pageNumber + 1;?>">Next</a>
 							<?php endif;?> -->
+
 						</nav>
                     </div>
                 </div>
