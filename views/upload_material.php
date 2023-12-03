@@ -59,10 +59,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$title = $_POST['post_title'];
 	//var_dump($_POST);
 	
-	$mime_types = ['text/plain', 'text/html', 'image/jpeg', 'image/png', 'image/gif', 
-		'audio/wav', 'audio/mpeg', 'video/mp4', 'video/mpeg', 
-		'application/msword', 'application/pdf', 'application/vnd.ms-powerpoint',
-		'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+	$mime_types = ['text/plain', 'image/jpeg', 'image/png', 'application/pdf',
+		'application/vnd.oasis.opendocument.text'];/*,
+		'application/msword',  'application/vnd.ms-powerpoint',
+		'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+		'application/vnd.oasis.opendocument.text', 'text/html'];*/
 	
 	try 
 	{
@@ -110,13 +111,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		} else {
 			$uploadModel->addUpload($post_id, $filename);
 		}
+		$post_id = $uploadModel->createPostFromUpload($title, $filename);
+		header("Location: view_material.php?id=$post_id");
+		var_dump($post_id);
 	}
 	catch(Exception $e) {
 		echo $e->getMessage();
 	}
 	
-	$post_id = $uploadModel->createPostFromUpload($title, $filename);
-	var_dump($post_id);
 }
 ?>
 
@@ -147,7 +149,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			<div class="row justify-content-center">
 				<div class="col-11">
 					<div>
-						<label for="file">Add Additional Resources</label>
+						Upload as an Educational Material.<br> 
+						<label for="file">Allowed types: .txt, .pdf, .odt, .png, .jpeg, .jpg</label>
 						<input type="file" name="file" id="file">
 					</div>
 					<button class="btn btn-primary">Upload</button>

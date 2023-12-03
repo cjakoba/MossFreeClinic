@@ -115,14 +115,6 @@ VALUES
 (4, '123456', 1, '2023-11-14 21:53:01', 'blog', 
 '{\"time\":1700016781799,\"blocks\":[{\"id\":\"qbIa5baeUG\",\"type\":\"paragraph\",\"data\":{\"text\":\"test\"}},{\"id\":\"p9zyW0iP8C\",\"type\":\"paragraph\",\"data\":{\"text\":\"test12\"}}],\"version\":\"2.28.2\"}', 
 'published');
-/*,
-(5, 'Bone Diseases', 1, '2023-10-31 12:00:00', 'blog', 'Bones', 'published'),
-(6, 'Heart Surgery', 1, '2023-10-31 12:00:00', 'blog', 'Everything you need to know about Open Heart Surgery', 'published'),
-(7, 'Cardiovascular Exercises', 1, '2023-10-31 12:00:00', 'blog', 'Best exercises for your cardiovascular system', 'published'),
-(8, 'Bone Diseases', 1, '2023-10-31 12:00:00', 'blog', 'Bones', 'published'),
-(9, 'Heart Surgery', 1, '2023-10-31 12:00:00', 'blog', 'Everything you need to know about Open Heart Surgery', 'published'),
-(10, 'Cardiovascular Exercises', 1, '2023-10-31 12:00:00', 'blog', 'Best exercises for your cardiovascular system', 'published');
-*/
 -- --------------------------------------------------------
 
 --
@@ -386,13 +378,13 @@ ALTER TABLE `userdb`
 -- AUTO_INCREMENT for table `categorydb`
 --
 ALTER TABLE `categorydb`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `em_posts`
 --
 ALTER TABLE `em_posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `questiondb`
@@ -404,14 +396,13 @@ ALTER TABLE `questiondb`
 -- AUTO_INCREMENT for table `ratingdb`
 --
 ALTER TABLE `ratingdb`
-  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `upload_db`
 --
 ALTER TABLE `upload_db`
   MODIFY `upload_id` int(11) NOT NULL AUTO_INCREMENT;
-
 
 --
 -- AUTO_INCREMENT for table `surveydb`
@@ -429,13 +420,13 @@ ALTER TABLE `survey_responsedb`
 -- AUTO_INCREMENT for table `tagdb`
 --
 ALTER TABLE `tagdb`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `userdb`
 --
 ALTER TABLE `userdb`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

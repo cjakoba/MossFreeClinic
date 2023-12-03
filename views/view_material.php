@@ -1,38 +1,42 @@
 <?php
-include_once '../classes/dbh.classes.php';
-include_once '../classes/text-utility.classes.php';
-include_once '../classes/post-model.classes.php';
-include_once '../classes/post-view.classes.php';
-include_once '../classes/rating-model.classes.php';
-include_once '../classes/rating-controller.classes.php';
+	include_once '../classes/dbh.classes.php';
+	include_once '../classes/text-utility.classes.php';
+	include_once '../classes/post-model.classes.php';
+	include_once '../classes/post-view.classes.php';
+	include_once '../classes/rating-model.classes.php';
+	include_once '../classes/rating-controller.classes.php';
 
-// Initialize variables
-$post_id = null;
+	// Initialize variables
+	$post_id = null;
 
-// Check if ID is passed through URL (GET request)
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $post_id = $_GET['id'];
-} // Check if the form is submitted (POST request)
-elseif (isset($_POST['submit']) && isset($_POST['id']) && is_numeric($_POST['id'])) {
-    $post_id = $_POST['id'];
-}
+	// Check if ID is passed through URL (GET request)
+	if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+		$post_id = $_GET['id'];
+	} // Check if the form is submitted (POST request)
+	elseif (isset($_POST['submit']) && isset($_POST['id']) && is_numeric($_POST['id'])) {
+		$post_id = $_POST['id'];
+	}
 
-$ratingController = new RatingController();
-if (isset($_POST["Submit"])) {
-    $post_id = $_POST["post_id"];
-    $rating = $_POST["rating"];
+	$ratingController = new RatingController();
+	if (isset($_POST["Submit"])) {
+		$post_id = $_POST["post_id"];
+		$rating = $_POST["rating"];
 
-    $ratingController->updateRating($post_id, $rating);
-}
+		$ratingController->updateRating($post_id, $rating);
+	}
 
-$postInfo = new PostView();
-$post_type = $postInfo->fetchType($post_id);
-if($post_type == "blog") {
-	$post_content = json_encode($postInfo->fetchContent($post_id));
-} else if($post_type == "file") {
-	$post_content = $postInfo->fetchContent($post_id);
-	//var_dump($post_content);
-}
+	
+
+	$postInfo = new PostView();
+	$post_type = $postInfo->fetchType($post_id);
+	if($post_type == "blog") {
+		$post_content = json_encode($postInfo->fetchContent($post_id));
+	} else if($post_type == "file") {
+		$post_content = $postInfo->fetchContent($post_id);
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$mime_type = finfo_file($finfo, "../uploads/$post_content");
+		//var_dump($mime_type);
+	}
 ?>
 
 <!DOCTYPE html>
@@ -81,8 +85,14 @@ if($post_type == "blog") {
 			<?php if ($post_type == "blog"): ?>
 				const postHTML = renderer.parse(JSON.parse(<?php echo $post_content; ?>));
 				document.getElementById('content').innerHTML = postHTML.join('');
-			<?php elseif($post_type == "file"): ?>
-				document.getElementById('content').innerHTML = "<iframe src='../uploads/<?php echo $post_content; ?>' width='100%' height='600px'></iframe>";
+			<?php elseif($post_type == "file"): 
+					if ($mime_type == "application/vnd.oasis.opendocument.text" || $mime_type == "application/pdf"):?>
+					<!-- ViewerJS -->
+					document.getElementById('content').innerHTML = "<iframe src='/ViewerJS/#../uploads/<?php echo $post_content; ?>'	width='100%' height='600px'></iframe>";
+					<?php else: ?>
+					<!-- Default -->
+					document.getElementById('content').innerHTML = "<iframe src='../uploads/<?php echo $post_content; ?>'	width='100%' height='600px'></iframe>";
+				<?php endif; ?>
 			<?php endif; ?>
 
             let selectRating = 0;
