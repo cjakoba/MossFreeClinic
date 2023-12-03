@@ -4,6 +4,7 @@ require_once "../classes/post-model.classes.php";
 require_once "../classes/post-view.classes.php";
 require_once "../classes/text-utility.classes.php";
 require_once '../classes/session-manager.classes.php';
+
 $sessionManager = new SessionManager();
 $sessionManager->startSession();
 $permissions = $sessionManager->getSessionData('user_id');
@@ -13,6 +14,7 @@ $postPerPage = 10;
 $totalPosts = $postView->getTotalPosts();
 $maxPages = ceil($totalPosts / $postPerPage);
 $pageNumber = NULL;
+
 if(isset($_GET['page']))
 {
 	$pageNumber = filter_var($_GET['page'], FILTER_VALIDATE_INT, [
@@ -53,17 +55,14 @@ if(isset($_GET['page']))
                 <div class="col-lg-11">
                     <div id="content">
 						<nav>
-							
-
-
-
-
-
-
-
-
-
-
+							<!-- Sumbit form -->
+							<form action="" method="GET">
+								<div class="input-group mb-3">
+									<input type="text" name="search" class="form-control" placeholder="Search...">
+									<button type="submit">Search</button>
+								</div>
+							</form>
+							<!-- CODE FROM LIST_EM_POSTS.PHP -->
 							<!-- <?php if($pageNumber > 1):?>
 								<a href="?page=<?= $pageNumber - 1;?>">&#8249; Previous</a>
 							<?php else:?>
@@ -86,9 +85,6 @@ if(isset($_GET['page']))
 							<?php if($pageNumber < $maxPages):?>
 								<a href="?page=<?= $pageNumber + 1;?>">Next</a>
 							<?php endif;?> -->
-
-
-
 						</nav>
                     </div>
                 </div>
