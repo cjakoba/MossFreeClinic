@@ -146,11 +146,25 @@
             echo "<form method=post>";
             while ($row = mysqli_fetch_assoc($results)){
                 echo "<input type='text' name='userName' placeholder='" . $row['username'] . "'>";
+                $admin = False;
+                $eAdmin = False;
+            if (strcmp($row['user_type'], "Admin")){
+                $admin = True;
+            }
+            if (strcmp($row['user_type'], "Executive Admin")){
+                $eAdmin = True;
+            }
             }
             // Create button for submitting
             echo "<input type='password' name='newpass' placeholder='password'><br></br>";
-            echo "<input type= 'checkbox' name='newtype' value='Admin'>Admin";
-            echo "<input type='checkbox' name='newtype' value='Executive Admin'>Executive Admin<br></br>";
+            if ($admin){
+                echo "<input type= 'radio' name='newtype' value='Admin'>Admin";
+                echo "<input type='radio' checked name='newtype' value='Executive Admin'>Executive Admin<br></br>";
+            }
+            else{
+                echo "<input type= 'radio' checked name='newtype' value='Admin'>Admin";
+                echo "<input type='radio' name='newtype' value='Executive Admin'>Executive Admin<br></br>";
+            }
             echo "<button type='submit' name='edituser' value=" . $_POST['edituser'] . ">Submit Changes</button><br></br>";
             echo "</form>";
             // Create button for deleting user
