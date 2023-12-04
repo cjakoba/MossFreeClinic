@@ -59,20 +59,29 @@ if(isset($_GET['page']))
 							<form action="" method="GET">
 								<div class="input-group mb-3">
 									<input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search'];} ?>" class="form-control" placeholder="Search...">
-									<button type="submit">Search</button>
+									<button type="submit" class="btn-custom">Search</button>
 								</div>
 							</form>
 
+							<!-- Connect to db -->
 							<?php $con = mysqli_connect("localhost", "Admin", "NAKBcXs5vGqA@pqxo2%AQe0wy", "homebasedb"); ?>
 
 							<?php if (isset($_GET['search'])) {
 								$searchString = $_GET['search'];
-								$query = "SELECT post_title FROM em_posts WHERE post_title LIKE '%$searchString%';";
+								$query = "SELECT * FROM em_posts WHERE post_title LIKE '%$searchString%';";
 								$query_run = mysqli_query($con, $query);
 							} ?>
 
+							<!-- if matches found -->
 							<?php if (mysqli_num_rows($query_run) > 0) {
-								echo "Matches were found!";
+								echo "Matches found!";
+								echo "<br><br>";
+								echo "< We are still working on displaying the matches >";
+
+								foreach ($query_run as $items) {
+									//TODO display the matches
+								}
+
 							} else {
 								echo "No matches found.";
 							} ?>
