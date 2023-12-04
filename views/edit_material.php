@@ -182,7 +182,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                   class: ImageTool,
                                   config: {
                                     endpoints: {
-                                      byFile: '../uploads', // Replace with your server endpoint for image upload
+                                      byFile: '../api/upload.php',
+                                      byUrl: 'http://localhost/api/upload.php',                              // Replace with your server endpoint for image upload
                                       types: 'image/jpeg,image/jpg',
                                     },
                                   },
