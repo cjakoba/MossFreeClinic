@@ -61,65 +61,7 @@ if (isset($post_id) && is_numeric($post_id)) {
     // Handle the case where post_id is not set or invalid
     $posts = []; // or handle this scenario as needed
 }
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-	
-	//var_dump($_FILES);
-	
-	$mime_types = ['text/plain', 'text/html', 'image/jpeg', 'image/png', 'image/gif', 
-		'audio/wav', 'audio/mpeg', 'video/mp4', 'video/mpeg', 
-		'application/msword', 'application/pdf', 'application/vnd.ms-powerpoint'];
-	
-	try 
-	{
-		switch ($_FILES['file']['error']) {
-		case UPLOAD_ERR_OK:
-			break;
-		case UPLOAD_ERR_NO_FILE:
-			throw new Exception('No file uploaded');
-			break;
-		case UPLOAD_ERR_INI_SIZE:
-			throw new Exception('File too large');
-			break;
-		default:
-			throw new Exception('An error occurred');
-		}
-		
-		if($_FILES['file']['size'] > 1000000) {
-			throw new Exception('File too large');
-		}
-		
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		$mime_type = finfo_file($finfo, $_FILES['file']['tmp_name']);
-		
-		if(! in_array($mime_type, $mime_types)) {
-			throw new Exception('Invalid file type');
-		}
-		
-		$pathinfo = pathinfo($_FILES['file']['name']);
-		$base = $pathinfo['filename'];
-		$base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
-		$filename = $base . "." . $pathinfo['extension'];
-		
-		$destination = "../uploads/$filename";
-		
-		$i = 1;
-		
-		while(file_exists($destination)) {
-			$filename = $base . "-$i." . $pathinfo['extension'];
-			$destination = "../uploads/$filename";
-			$i++;
-		}
-		
-		if(! move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
-			throw new Exception('Upload unsuccessful');
-		} else {
-			$uploadModel->addUpload($post_id, $filename);
-		}
-	}
-	catch(Exception $e) {
-		echo $e->getMessage();
-	}
-}
+
 ?>
 
 <!DOCTYPE html>
