@@ -50,7 +50,7 @@ try {
 // Check if $post_id is set and is a valid number
 if (isset($post_id) && is_numeric($post_id)) {
     // Prepare the statement with parameter placeholders
-    $stmt = $pdo->prepare("SELECT post_title, post_content, post_id FROM em_posts WHERE post_id = :post_id");
+    $stmt = $pdo->prepare("SELECT post_title, post_content, post_id, post_type FROM em_posts WHERE post_id = :post_id");
 
     // Execute the statement with the actual parameter value
     $stmt->execute(['post_id' => $post_id]);
@@ -60,65 +60,6 @@ if (isset($post_id) && is_numeric($post_id)) {
 } else {
     // Handle the case where post_id is not set or invalid
     $posts = []; // or handle this scenario as needed
-}
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-	
-	//var_dump($_FILES);
-	
-	$mime_types = ['text/plain', 'text/html', 'image/jpeg', 'image/png', 'image/gif', 
-		'audio/wav', 'audio/mpeg', 'video/mp4', 'video/mpeg', 
-		'application/msword', 'application/pdf', 'application/vnd.ms-powerpoint'];
-	
-	try 
-	{
-		switch ($_FILES['file']['error']) {
-		case UPLOAD_ERR_OK:
-			break;
-		case UPLOAD_ERR_NO_FILE:
-			throw new Exception('No file uploaded');
-			break;
-		case UPLOAD_ERR_INI_SIZE:
-			throw new Exception('File too large');
-			break;
-		default:
-			throw new Exception('An error occurred');
-		}
-		
-		if($_FILES['file']['size'] > 1000000) {
-			throw new Exception('File too large');
-		}
-		
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		$mime_type = finfo_file($finfo, $_FILES['file']['tmp_name']);
-		
-		if(! in_array($mime_type, $mime_types)) {
-			throw new Exception('Invalid file type');
-		}
-		
-		$pathinfo = pathinfo($_FILES['file']['name']);
-		$base = $pathinfo['filename'];
-		$base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
-		$filename = $base . "." . $pathinfo['extension'];
-		
-		$destination = "../uploads/$filename";
-		
-		$i = 1;
-		
-		while(file_exists($destination)) {
-			$filename = $base . "-$i." . $pathinfo['extension'];
-			$destination = "../uploads/$filename";
-			$i++;
-		}
-		
-		if(! move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
-			throw new Exception('Upload unsuccessful');
-		} else {
-			$uploadModel->addUpload($post_id, $filename);
-		}
-	}
-	catch(Exception $e) {
-		echo $e->getMessage();
-	}
 }
 ?>
 
@@ -147,14 +88,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="row justify-content-center">
             <div class="col-11">
                 <div id="editorjs"></div>
-					<form method="post" enctype="multipart/form-data">
-						<div>
-							<label for="file">Add Additional Resources</label>
-							<input type="file" name="file" id="file">
-						</div>
-						<button>Upload</button>
-					</form>
-					<br/>
                 <!-- Cancel Post -->
                 <a id="cancelButton" class="btn btn-primary btn-cancel" href="dashboard.php">Cancel Post</a>
                 <!-- Publish Post -->
@@ -163,6 +96,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a id="draftButton" class="btn btn-primary">Save as Draft</a>
 
                 <script>
+					<?php if($posts[0]['post_type'] == "blog"):?>
                     // editor-setup.js
                     const editor = new EditorJS({
                         autofocus: !0,
@@ -181,10 +115,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         },
                         data: <?php echo $posts[0]['post_content'] ?? null; ?>,
                     });
-
+					
                     var titleInput = document.getElementById('post-editor-title');
                     var postId = <?php echo $post_id; ?>
-
+					
                     function saveData() {
                         if (titleInput.value.trim() === '') {
                             event.preventDefault();
@@ -222,6 +156,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 console.error('Error:', error);
                             });
                     }
+					<?php else: ?>
+					document.getElementById('editorjs').innerHTML = "Cannot Edit this File!<br/><br/>";
+					<?php endif;?>
                 </script>
             </div>
         </div>
