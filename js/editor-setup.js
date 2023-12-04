@@ -13,8 +13,18 @@ const editor = new EditorJS({
             inlineToolbar: true
         },
         embed: Embed,
+        image: {
+            class: ImageTool,
+            config: {
+                endpoints: {
+                    byFile: '../api/upload.php',
+                    byUrl: 'http://localhost/api/upload.php',
+                    types: 'image/jpeg,image/jpg',
+                },
+            },
         },
-        data: {},
+    },
+    data: {},
 });
 
 var titleInput = document.getElementById('post-editor-title');

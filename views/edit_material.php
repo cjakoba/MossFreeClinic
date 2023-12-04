@@ -153,7 +153,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a id="saveButton" class="btn btn-primary">Update Post</a>
                 <!-- Draft Post -->
                 <a id="draftButton" class="btn btn-primary">Save as Draft</a>
-                <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
                 <script>
                     // editor-setup.js
                     const editor = new EditorJS({
@@ -175,11 +174,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                   config: {
                                     endpoints: {
                                       byFile: '../api/upload.php',
-                                      byUrl: 'http://localhost/api/upload.php',                              // Replace with your server endpoint for image upload
+                                      byUrl: 'http://localhost/api/upload.php',
                                       types: 'image/jpeg,image/jpg',
                                     },
                                   },
-                                },
+                            },
                         },
                         data: <?php echo $posts[0]['post_content'] ?? null; ?>,
                     });
