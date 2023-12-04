@@ -65,7 +65,8 @@ if(isset($_GET['page']))
 
 							<!-- Connect to db -->
 							<?php $con = mysqli_connect("localhost", "Admin", "NAKBcXs5vGqA@pqxo2%AQe0wy", "homebasedb"); ?>
-
+							<?php $query_run = ""; ?>
+							
 							<?php if (isset($_GET['search'])) {
 								$searchString = $_GET['search'];
 								$query = "SELECT * FROM em_posts WHERE post_title LIKE '%$searchString%';";
@@ -73,17 +74,21 @@ if(isset($_GET['page']))
 							} ?>
 
 							<!-- if matches found -->
-							<?php if (mysqli_num_rows($query_run) > 0) {
-								echo "Matches found!";
-								echo "<br><br>";
-								echo "< We are still working on displaying the matches >";
+							<?php try {
+								if (mysqli_num_rows($query_run) > 0) {
+									echo "Matches found!";
 
-								foreach ($query_run as $items) {
-									//TODO display the matches
+									foreach ($query_run as $items) {
+										//TODO display the matches
+										$title = $items['post_title'];
+										echo "<br><br>";
+										echo "<h3>$title</h3>";
+										//$postView->fetchPagePostsTitleAndDescription($pageNumber,$postPerPage,$loggedIn);
+									}
+								} else {
+									echo "No matches found.";
 								}
-
-							} else {
-								echo "No matches found.";
+							} catch (TypeError $ex) {
 							} ?>
 
 							<!-- CODE FROM LIST_EM_POSTS.PHP -->
