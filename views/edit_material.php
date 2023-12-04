@@ -147,14 +147,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="row justify-content-center">
             <div class="col-11">
                 <div id="editorjs"></div>
-					<form method="post" enctype="multipart/form-data">
-						<div>
-							<label for="file">Add Additional Resources</label>
-							<input type="file" name="file" id="file">
-						</div>
-						<button>Upload</button>
-					</form>
-					<br/>
                 <!-- Cancel Post -->
                 <a id="cancelButton" class="btn btn-primary btn-cancel" href="dashboard.php">Cancel Post</a>
                 <!-- Publish Post -->
