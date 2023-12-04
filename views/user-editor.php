@@ -94,6 +94,10 @@
             echo "<p>Error password must contain at least one number<p>";
         }
         unset($_POST['newpass']);
+        if (!strcmp($_POST['edituser'], 'C')){
+            unset($_POST['edituser']);
+        }
+
     }
     // Check if new user should be created
     if (isset($_POST['edituser']) and strcmp($_POST['edituser'], 'C') == 0 and strlen($_POST['newuser']) > 1 and checkPassword($_POST['newpass']) == 0){
