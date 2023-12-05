@@ -67,51 +67,55 @@ if(isset($_GET['page']))
 							<?php $con = mysqli_connect("localhost", "Admin", "NAKBcXs5vGqA@pqxo2%AQe0wy", "homebasedb"); ?>
 							<?php $query_run = ""; ?>
 							
+							<!-- if the search button was clicked -->
 							<?php if (isset($_GET['search'])) {
 								$searchString = $_GET['search'];
-								$query = "SELECT * FROM em_posts WHERE post_title LIKE '%$searchString%';";		//search the db for post titles containing the given string
+								$query = "SELECT * FROM em_posts WHERE post_title LIKE '%$searchString%';";
 								$query_run = mysqli_query($con, $query);
 							} ?>
 
 							<!-- if matches found -->
 							<?php try {
 								if (mysqli_num_rows($query_run) > 0) {
-									//echo "Matches found!";
 
 									foreach ($query_run as $items) {
 										$title = $items['post_title'];
-									}
-									$postView->fetchMatchingPagePostsTitleAndDescription($title, $pageNumber,$postPerPage,$loggedIn);	//display matching posts
-								} else {
+									} ?>
+
+									<!-- navigate prev/next pages -->
+									<nav>
+										<?php if($pageNumber > 1):?>
+											<a href="?page=<?= $pageNumber - 1;?>">&#8249; Previous</a>
+										<?php else:?>
+											&#8249;
+											Previous
+										<?php endif;?>
+										<?php if($pageNumber < $maxPages):?>
+											<a href="?page=<?= $pageNumber + 1;?>">Next &#8250;</a>
+										<?php else:?>
+											Next
+											&#8250;
+										<?php endif;?>
+										<br/><br/>
+									</nav>
+
+									<!-- display the relevant posts -->
+									<?php $postView->fetchMatchingPagePostsTitleAndDescription($title, $pageNumber,$postPerPage,$loggedIn); ?>
+
+									<nav>
+										<?php if($pageNumber > 1):?>
+											<a href="?page=<?= $pageNumber - 1;?>">Previous</a>
+										<?php endif;?>
+										<?php if($pageNumber < $maxPages):?>
+											<a href="?page=<?= $pageNumber + 1;?>">Next</a>
+										<?php endif;?>
+									</nav>
+								<!-- if there are no relevant posts -->
+								<?php } else {
 									echo "No matches found.";
 								}
 							} catch (TypeError $ex) {
 							} ?>
-
-							<!-- CODE FROM LIST_EM_POSTS.PHP -->
-							<!-- <?php if($pageNumber > 1):?>
-								<a href="?page=<?= $pageNumber - 1;?>">&#8249; Previous</a>
-							<?php else:?>
-								&#8249;
-								Previous
-							<?php endif;?>
-							<?php if($pageNumber < $maxPages):?>
-								<a href="?page=<?= $pageNumber + 1;?>">Next &#8250;</a>
-							<?php else:?>
-								Next
-								&#8250;
-							<?php endif;?>
-							<br/><br/>
-						</nav>
-                        <?php $postView->fetchPagePostsTitleAndDescription($pageNumber,$postPerPage,$loggedIn) ?>
-						<nav>
-							<?php if($pageNumber > 1):?>
-								<a href="?page=<?= $pageNumber - 1;?>">Previous</a>
-							<?php endif;?>
-							<?php if($pageNumber < $maxPages):?>
-								<a href="?page=<?= $pageNumber + 1;?>">Next</a>
-							<?php endif;?> -->
-
 						</nav>
                     </div>
                 </div>
