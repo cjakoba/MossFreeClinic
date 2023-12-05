@@ -58,7 +58,7 @@ if(isset($_GET['page']))
 							<!-- Sumbit form -->
 							<form action="" method="GET">
 								<div class="input-group mb-3">
-									<input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search'];} ?>" class="form-control" placeholder="Search...">
+									<input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search'];} ?>" class="form-control" placeholder="What are you searching for?">
 									<button type="submit" class="btn-custom">Search</button>
 								</div>
 							</form>
@@ -69,22 +69,19 @@ if(isset($_GET['page']))
 							
 							<?php if (isset($_GET['search'])) {
 								$searchString = $_GET['search'];
-								$query = "SELECT * FROM em_posts WHERE post_title LIKE '%$searchString%';";
+								$query = "SELECT * FROM em_posts WHERE post_title LIKE '%$searchString%';";		//search the db for post titles containing the given string
 								$query_run = mysqli_query($con, $query);
 							} ?>
 
 							<!-- if matches found -->
 							<?php try {
 								if (mysqli_num_rows($query_run) > 0) {
-									echo "Matches found!";
+									//echo "Matches found!";
 
 									foreach ($query_run as $items) {
-										//TODO display the matches
 										$title = $items['post_title'];
-										echo "<br><br>";
-										echo "<h3>$title</h3>";
-										//$postView->fetchPagePostsTitleAndDescription($pageNumber,$postPerPage,$loggedIn);
 									}
+									$postView->fetchMatchingPagePostsTitleAndDescription($title, $pageNumber,$postPerPage,$loggedIn);	//display matching posts
 								} else {
 									echo "No matches found.";
 								}

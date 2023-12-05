@@ -69,6 +69,42 @@ class PostView extends PostModel
     }
 
     /**
+     * Fetches exact same info as fetchPagePostsTitleAndDescription(), but only if the post title matches the given string $title.
+     * @param $title The user's search word.
+     * @param int $page Current page number.
+     * @param int $postsPerPage The maximum number of posts to display per page.
+     * @throws Exception when sql statement is invalid.
+     */
+    public function fetchMatchingPagePostsTitleAndDescription($title, int $page, int $postsPerPage, bool $loggedIn)
+    {
+        // Fetch all posts and all posts' columns within specified range.
+        $postsInfo = $this->getPagePostsInfo($page, $postsPerPage);
+        
+        // When no posts are found, notify the user.
+        if (!$postsInfo)
+        {
+            echo '<p>No materials found.</p>';
+            exit();
+        }
+
+        // Otherwise display to the user all posts for the specific page and posts per page.
+        foreach ($postsInfo as $postInfo)
+        {
+            if ($postInfo['post_title'] == $title)  //only show the posts with titles that match the given string
+            {
+                echo '<div class="post-card">';
+                echo '<h2><a href="view_material.php?id=' . $postInfo['post_id'] . '"' . ' class="post-card-link">' . $postInfo['post_title'] . '</a></h2>';
+                echo '<p>' . $this->fetchDescription($postInfo['post_id'], 200) . '</p>';
+			    if($loggedIn) {
+				    echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
+				    echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+			    }
+                echo '</div>';
+                }
+        }
+    }
+
+    /**
      * Converts JSON, made from and stored by the editorjs plugin, to a string made from text found in paragraph tags.
      * @param $data JSON data produced by the editorjs plugin, retrieved from the database.
      * @return string|null text found in all paragraph tags.
