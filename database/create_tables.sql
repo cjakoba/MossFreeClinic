@@ -15,13 +15,25 @@ CREATE TABLE IF NOT EXISTS surveydb(
 CREATE TABLE IF NOT EXISTS questiondb(
     question_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     question_type VARCHAR(50),
-    question BLOB
+    question VARCHAR(500),
+    numAnswers int,
+    question_priority int,
+    times_answered int
     );
 
-CREATE TABLE IF NOT EXISTS survey_responsedb(
-    response_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    response_date DATETIME,
-    survey_response_value INT(11)
+CREATE TABLE IF NOT EXISTS answerdb(
+    answerID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    questionID INT,
+    answer VARCHAR(250),
+    answer_priority int,
+    times_answered int
+);
+
+CREATE TABLE IF NOT EXISTS responsedb(
+    responseID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    answer VARCHAR(500),
+    questionID INT,
+    surveyID INT(11)
     );
 
 CREATE TABLE IF NOT EXISTS tagdb(
