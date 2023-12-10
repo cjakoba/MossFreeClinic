@@ -21,6 +21,12 @@ class PostView extends PostModel
         $postInfo = $this->getPostInfo($post_id);
         return $postInfo[0]["post_content"];
     }
+	
+	public function fetchType($post_id)
+	{
+		$postInfo = $this->getPostInfo($post_id);
+        return $postInfo[0]["post_type"];
+	}
 
     /**
      * Fetches all paragraph text of specified post and reduces its description to specified length.
@@ -61,8 +67,15 @@ class PostView extends PostModel
             echo '<h2><a href="view_material.php?id=' . $postInfo['post_id'] . '"' . ' class="post-card-link">' . $postInfo['post_title'] . '</a></h2>';
             echo '<p>' . $this->fetchDescription($postInfo['post_id'], 200) . '</p>';
 			if($loggedIn) {
-				echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
-				echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+				if($postInfo['post_type'] == "blog") {
+					echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
+					echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+				} else if($postInfo['post_type'] == "file") {
+					echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
+					echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+				} else {
+					echo 'Cannot edit or delete this material<br/><br/>';
+				}
 			}
             echo '</div>';
         }
