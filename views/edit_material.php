@@ -117,7 +117,7 @@ if (isset($post_id) && is_numeric($post_id)) {
                                     endpoints: {
                                       byFile: '../api/upload.php',
                                       byUrl: 'http://localhost/api/upload.php',
-                                      types: 'image/jpeg,image/jpg',
+                                      types: 'image/jpeg, image/jpg, image/png',
                                     },
                                   },
                             },

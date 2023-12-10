@@ -12,6 +12,12 @@ if (isset($_FILES['image'])) {
   // Generate unique filename
   $filename = md5(time() . $_FILES['image']['name']) . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
 
+  // create uploads directory if it doesn't already exist
+  if (! is_dir("../uploads/")) {
+      mkdir("../uploads/");
+
+  }
+
   // Upload file
   if (move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/' . $filename)) {
     // Upload successful, generate image URL

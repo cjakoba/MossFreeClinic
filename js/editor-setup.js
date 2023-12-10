@@ -19,7 +19,7 @@ const editor = new EditorJS({
                 endpoints: {
                     byFile: '../api/upload.php',
                     byUrl: 'http://localhost/api/upload.php',
-                    types: 'image/jpeg,image/jpg',
+                    types: 'image/jpeg,image/jpg, image/png',
                 },
             },
         },
