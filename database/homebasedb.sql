@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS survey_responsedb;
 DROP TABLE IF EXISTS em_tagdb;
 DROP TABLE IF EXISTS em_categorydb;
 DROP TABLE IF EXISTS ratingdb;
+DROP TABLE IF EXISTS upload_db;
 DROP TABLE IF EXISTS em_posts;
 DROP TABLE IF EXISTS userdb;
 DROP TABLE IF EXISTS surveydb;
@@ -180,6 +181,19 @@ INSERT INTO `ratingdb` (`rating_id`, `rating`, `em_post_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `upload_db`
+--
+
+CREATE TABLE `upload_db` (
+  `upload_id` int(11) NOT NULL,
+  `upload_title` varchar(30) DEFAULT NULL,
+  `upload_tag` varchar(30) DEFAULT NULL,
+  `em_post_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `surveydb`
 --
 
@@ -272,14 +286,7 @@ INSERT INTO `userdb` (`userid`, `username`, `password`, `last_login`, `user_type
 (5, 'User4', 'Password4', '2023-10-31', 'admin'),
 (6, 'User5', 'Password5', '2023-10-31', 'admin'),
 (7, 'User6', 'Password6', '2023-10-31', 'admin'),
-(8, 'homebasedb', 'homebasedb', '2023-10-31', 'exec'),
-(9, 'User1', 'Password1', '2023-10-31', 'exec'),
-(10, 'User2', 'Password2', '2023-10-31', 'exec'),
-(11, 'User3', 'Password3', '2023-10-31', 'exec'),
-(12, 'User4', 'Password4', '2023-10-31', 'admin'),
-(13, 'User5', 'Password5', '2023-10-31', 'admin'),
-(14, 'User6', 'Password6', '2023-10-31', 'admin'),
-(15, 'homebasedb', 'homebasedb', '2023-10-31', 'exec');
+(8, 'homebasedb', 'homebasedb', '2023-10-31', 'exec');
 
 --
 -- Indexes for dumped tables
@@ -331,6 +338,14 @@ ALTER TABLE `question_responsedb`
 ALTER TABLE `ratingdb`
   ADD PRIMARY KEY (`rating_id`),
   ADD KEY `em_post_rating_fk` (`em_post_id`);
+
+--
+-- Indexes for table `upload_db`
+--
+ALTER TABLE `upload_db`
+  ADD PRIMARY KEY (`upload_id`),
+  ADD KEY `em_post_upload_fk` (`em_post_id`);
+
 
 --
 -- Indexes for table `surveydb`
@@ -392,6 +407,13 @@ ALTER TABLE `ratingdb`
   MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `upload_db`
+--
+ALTER TABLE `upload_db`
+  MODIFY `upload_id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+--
 -- AUTO_INCREMENT for table `surveydb`
 --
 ALTER TABLE `surveydb`
@@ -451,6 +473,12 @@ ALTER TABLE `question_responsedb`
 --
 ALTER TABLE `ratingdb`
   ADD CONSTRAINT `em_post_rating_fk` FOREIGN KEY (`em_post_id`) REFERENCES `em_posts` (`post_id`);
+
+--
+-- Constraints for table `upload_db`
+--
+ALTER TABLE `upload_db`
+  ADD CONSTRAINT `em_post_upload_fk` FOREIGN KEY (`em_post_id`) REFERENCES `em_posts` (`post_id`);
 
 --
 -- Constraints for table `survey_questiondb`

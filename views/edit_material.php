@@ -1,8 +1,12 @@
 <?php
 require_once '../classes/session-manager.classes.php';
+require_once '../classes/dbh.classes.php';
+require_once '../classes/upload-model.classes.php';
 $sessionManager = new SessionManager();
 $sessionManager->startSession();
 $sessionManager->checkLogin();
+
+$uploadModel = new UploadModel();
 
 // Initialize variables
 $post_id = null;
@@ -85,14 +89,12 @@ if (isset($post_id) && is_numeric($post_id)) {
         <div class="row justify-content-center">
             <div class="col-11">
                 <div id="editorjs"></div>
-
                 <!-- Cancel Post -->
                 <a id="cancelButton" class="btn btn-primary btn-cancel" href="dashboard.php">Cancel Post</a>
                 <!-- Publish Post -->
                 <a id="saveButton" class="btn btn-primary">Update Post</a>
                 <!-- Draft Post -->
                 <a id="draftButton" class="btn btn-primary">Save as Draft</a>
-
                 <script>
                     // editor-setup.js
                     const editor = new EditorJS({
@@ -109,6 +111,16 @@ if (isset($post_id) && is_numeric($post_id)) {
                                 inlineToolbar: true
                             },
                             embed: Embed,
+                            image: {
+                                  class: ImageTool,
+                                  config: {
+                                    endpoints: {
+                                      byFile: '../api/upload.php',
+                                      byUrl: 'http://localhost/api/upload.php',
+                                      types: 'image/jpeg, image/jpg, image/png',
+                                    },
+                                  },
+                            },
                         },
                         data: <?php echo $posts[0]['post_content'] ?? null; ?>,
                     });
