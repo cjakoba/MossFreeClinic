@@ -86,9 +86,9 @@
 				const postHTML = renderer.parse(JSON.parse(<?php echo $post_content; ?>));
 				document.getElementById('content').innerHTML = postHTML.join('');
 			<?php elseif($post_type == "file"): 
-					if ($mime_type == "application/vnd.oasis.opendocument.text" || $mime_type == "application/pdf"):?>
+					if ($mime_type == "application/vnd.oasis.opendocument.text"): //|| $mime_type == "application/pdf"):?>
 					<!-- ViewerJS -->
-					document.getElementById('content').innerHTML = "<iframe src='/ViewerJS/#../uploads/<?php echo $post_content; ?>'	width='100%' height='600px'></iframe>";
+					document.getElementById('content').innerHTML = "<iframe src='ViewerJS/#../../uploads/<?php echo $post_content; ?>'	width='100%' height='600px'></iframe>";
 					<?php else: ?>
 					<!-- Default -->
 					document.getElementById('content').innerHTML = "<iframe src='../uploads/<?php echo $post_content; ?>'	width='100%' height='600px'></iframe>";
