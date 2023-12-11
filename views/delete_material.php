@@ -1,8 +1,14 @@
 <?php
+require ('../classes/session-manager.classes.php');
 require ('../classes/text-utility.classes.php');
 require ('../classes/dbh.classes.php');
 require ('../classes/post-model.classes.php');
 require ('../classes/post-view.classes.php');
+
+$sessionManager = new SessionManager();
+$sessionManager->startSession();
+$sessionManager->checkLogin();
+
 $servername = "localhost";
 $username = "homebasedb";
 $password = "homebasedb";
@@ -70,14 +76,14 @@ include 'layouts/navbar.php';
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["operation"]) && $_POST["operation"] == "delete") {
     $post_id = $_POST["post_id"];
-	
-	$postView = new PostView();
-	$postType = $postView->fetchType();
-	if($postType == "file") {
-		$filename = $postView->fetchContent();
-		unlink("../uploads/$filename");
-	}
-	
+
+    $postView = new PostView();
+    $postType = $postView->fetchType();
+    if($postType == "file") {
+        $filename = $postView->fetchContent();
+        unlink("../uploads/$filename");
+    }
+
     $deleteRatingsQuery = "DELETE FROM ratingdb WHERE em_post_id = '$post_id'";
     if ($connection->query($deleteRatingsQuery) === TRUE) {
         $deletePostQuery = "DELETE FROM em_posts WHERE post_id = '$post_id'";
