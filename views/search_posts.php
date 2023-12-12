@@ -62,16 +62,10 @@ if(isset($_GET['page']))
 									<button type="submit" class="btn-custom">Search</button>
 								</div>
 							</form>
-
-							<!-- Connect to db -->
-							<?php //$con = mysqli_connect("localhost", "Admin", "NAKBcXs5vGqA@pqxo2%AQe0wy", "homebasedb"); ?>
-							<?php //$query_run = ""; ?>
 							
 							<!-- if the search button was clicked -->
 							<?php if (isset($_GET['search'])) {
 								$searchedString = $_GET['search'];
-								//$query = "SELECT * FROM em_posts WHERE post_title LIKE '%$searchString%';";
-								//$query_run = mysqli_query($con, $query);
 							} else {
 								$searchedString = "";
 							} ?>

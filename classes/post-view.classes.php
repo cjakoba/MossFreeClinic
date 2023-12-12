@@ -90,8 +90,14 @@ class PostView extends PostModel
         // Otherwise display to the user all posts for the specific page and posts per page.
         foreach ($postsInfo as $postInfo)
         {
-            //if ($postInfo['post_title'] == $searchedString)  //only show the posts with titles that match the given string
-            if (str_contains($postInfo['post_title'], $searchedString))
+            $postTitle = $postInfo['post_title'];
+
+            //change both strings to lower case to make the search case-insensitive
+            $postTitle = strtolower($postTitle);
+            $searchedString = strtolower($searchedString);
+
+            //only show the posts with titles that match the given string
+            if (str_contains($postTitle, $searchedString))
             {
                 echo '<div class="post-card">';
                 echo '<h2><a href="view_material.php?id=' . $postInfo['post_id'] . '"' . ' class="post-card-link">' . $postInfo['post_title'] . '</a></h2>';
@@ -101,7 +107,7 @@ class PostView extends PostModel
 				    echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
 			    }
                 echo '</div>';
-                }
+            }
         }
     }
 
