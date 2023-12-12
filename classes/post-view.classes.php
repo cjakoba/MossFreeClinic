@@ -75,7 +75,7 @@ class PostView extends PostModel
      * @param int $postsPerPage The maximum number of posts to display per page.
      * @throws Exception when sql statement is invalid.
      */
-    public function fetchMatchingPagePostsTitleAndDescription($title, int $page, int $postsPerPage, bool $loggedIn)
+    public function fetchMatchingPagePostsTitleAndDescription($searchedString, int $page, int $postsPerPage, bool $loggedIn)
     {
         // Fetch all posts and all posts' columns within specified range.
         $postsInfo = $this->getPagePostsInfo($page, $postsPerPage);
@@ -90,7 +90,8 @@ class PostView extends PostModel
         // Otherwise display to the user all posts for the specific page and posts per page.
         foreach ($postsInfo as $postInfo)
         {
-            if ($postInfo['post_title'] == $title)  //only show the posts with titles that match the given string
+            //if ($postInfo['post_title'] == $searchedString)  //only show the posts with titles that match the given string
+            if (str_contains($postInfo['post_title'], $searchedString))
             {
                 echo '<div class="post-card">';
                 echo '<h2><a href="view_material.php?id=' . $postInfo['post_id'] . '"' . ' class="post-card-link">' . $postInfo['post_title'] . '</a></h2>';
