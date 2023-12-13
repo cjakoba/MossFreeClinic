@@ -85,7 +85,7 @@
     // Print error statements from check password
     if (isset($_POST['newpass']) and checkPassword($_POST['newpass'])){
         if (checkPassword($_POST['newpass']) == 1){
-            echo "<p>Error password needs to be longer then 8 characters<p>";
+            echo "<p>Error password needs to be longer then 8 characters";
         }
         else if (checkPassword($_POST['newpass']) == 2){
             echo "<p>Error password must contain at least one capital letter<p>";
@@ -97,12 +97,12 @@
         if (!strcmp($_POST['edituser'], 'C')){
             unset($_POST['edituser']);
         }
-
     }
     // Check if new user should be created
     if (isset($_POST['edituser']) and strcmp($_POST['edituser'], 'C') == 0 and strlen($_POST['newuser']) > 1 and checkPassword($_POST['newpass']) == 0){
         // Run sql statement to add new user with name given by user and set user to edit to be new user
-        $_POST['edituser'] = createuser($_POST['newuser'], $_POST['newpass'], $connection);
+        $hash = password_hash($_POST['newpass'], PASSWORD_BCRYPT);
+        $_POST['edituser'] = createuser($_POST['newuser'], $hash, $connection);
     }
     // Check if user to edit has been selected and if the user needs to be removed
     if (isset($_POST['edituser']) and strcmp(substr($_POST['edituser'], -1), 'E') == 0){
@@ -127,8 +127,9 @@
 }
     // Check if user to edit has been selected and if the user needs to update password
     if (isset($_POST['edituser']) and isset($_POST['newpass']) and !checkPassword($_POST['newpass'])){
+        $hash = password_hash($_POST['newpass'], PASSWORD_BCRYPT);
         // Run sql statement to update user
-        editUserPassword($_POST['edituser'], $_POST['newpass'], $connection);
+        editUserPassword($_POST['edituser'], $hash, $connection);
 }
     // Check if the user to be edited has been set and if so enter edit mode
     if(isset($_POST['edituser'])){
@@ -152,27 +153,31 @@
                 echo "<input type='text' name='userName' placeholder='" . $row['username'] . "'>";
                 $admin = False;
                 $eAdmin = False;
-            if (strcmp($row['user_type'], "Admin")){
+                // Check if user is currently an admin or executive admin
+            if (!strcmp($row['user_type'], "Admin")){
                 $admin = True;
             }
-            if (strcmp($row['user_type'], "Executive Admin")){
+            if (!strcmp($row['user_type'], "Executive Admin")){
                 $eAdmin = True;
             }
             }
-            // Create button for submitting
+            // Create way to change password
             echo "<input type='password' name='newpass' placeholder='password'><br></br>";
+            // Create way to switch between admin and executive admin
             if ($admin){
-                echo "<input type= 'radio' name='newtype' value='Admin'>Admin";
-                echo "<input type='radio' checked name='newtype' value='Executive Admin'>Executive Admin<br></br>";
-            }
-            else{
                 echo "<input type= 'radio' checked name='newtype' value='Admin'>Admin";
                 echo "<input type='radio' name='newtype' value='Executive Admin'>Executive Admin<br></br>";
             }
+            else{
+                echo "<input type= 'radio' name='newtype' value='Admin'>Admin";
+                echo "<input type='radio' checked name='newtype' value='Executive Admin'>Executive Admin<br></br>";
+            }
+            // Create button for submitting
             echo "<button type='submit' name='edituser' value=" . $_POST['edituser'] . ">Submit Changes</button><br></br>";
             echo "</form>";
             // Create button for deleting user
-        echo "<form method=post><br></br><button type='submit' name=edituser value='". $_POST['edituser'] . "EE'>Delete user</button><br></br>";
+        echo "<form method=post>";
+        echo "<br></br><button type='submit' name=edituser value='". $_POST['edituser'] . "EE'>Delete user</button><br></br>";
         echo "</form>";
         } else {
             // Exit if user doesn't exist
