@@ -13,7 +13,7 @@ $loggedIn = $sessionManager->isLoggedIn();
                     <img src="../img/logo.png" alt="Clinic logo">
                 </a>
                 <div class="navbar-links">
-                    <a href="under_construction.php">Search Posts</a>
+                    <a href="search_posts.php">Search Posts</a>
                     <a href="list_em_posts.php">View Posts</a>
                     <a href="under_construction.php">Patient Care Survey</a>
                     <a href="https://mossfreeclinic.org/">Return to MossFreeClinic</a>

@@ -37,7 +37,7 @@ $sessionManager->checkLogin();
             <div class="row justify-content-center">
                 <div class="row col-11">
                     <div class="col-lg-4 mb-4">
-                        <div class="card" onclick="location.href='under_construction.php';">
+                        <div class="card" onclick="location.href='list_em_posts.php';">
                             <div class="card-title">Posts</div>
                             <div class="card-stat"><?php echo $numberOfPosts; ?> entries | <?php $postView->getTotalPostsForStatus("published"); ?> published | <?php $postView->getTotalPostsForStatus("draft"); ?> drafted</div>
                             <div class="card-description">Edit, delete, and create new posts.</div>
