@@ -13,6 +13,7 @@
     $sql = "SELECT * FROM questiondb ORDER BY question_priority";
     $result = mysqli_query($connection, $sql);
     // Check if user has submitted
+    echo '<link rel="stylesheet" href="../css/survey.css" type="text/css" />';
     if (isset($_POST['submit'])){
         // Display thank you message
         echo "<h1>Thanks for completing the survey you may now leave this page</h1>";

@@ -14,65 +14,7 @@
     <head>
     <link rel="stylesheet" href="styles.css" type="text/css" />
     <!-- Style rules for webpage-->
-        <style>
-        h1 {
-                color: #4b6c9e;
-                font-size: 36px;
-                margin-bottom: 20px;
-                text-align: center;
-                margin: 0 auto;
-            }
-            input[type="text"]{
-                width: 25%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
-            input[type="checkbox"]{
-                width: 5%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
-            table{
-                width: 100%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-                background-color: lightskyblue;
-            }
-            td{
-                width: 10%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
-            th{
-                width: 10%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
-            button{
-                width: 25%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 3px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-                background-color:lightblue;
-            }
-            </style> 
+    <link rel="stylesheet" href="../css/editor.css" type="text/css" />
     </head>
     <h1>Edit category</h1>
     <?php
@@ -239,7 +181,7 @@
     // Else runs if a category has not been set to be edited
     } else {
         // Get information about categories to create a list
-        $sql = "SELECT * FROM categorydb";
+        $sql = "SELECT * FROM categorydb ORDER BY category_name";
         $results = mysqli_query($connection, $sql);
         if (mysqli_num_rows($results) > 0) {
             // Create form to allow user to enter edit mode
