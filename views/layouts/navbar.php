@@ -15,12 +15,12 @@ $loggedIn = $sessionManager->isLoggedIn();
                 <div class="navbar-links">
                     <a href="search_posts.php">Search Posts</a>
                     <a href="list_em_posts.php">View Posts</a>
-                    <a href="under_construction.php">Patient Care Survey</a>
+                    <a href="take-survey.php">Patient Care Survey</a>
                     <a href="https://mossfreeclinic.org/">Return to MossFreeClinic</a>
 
                     <?php if ($loggedIn): ?>
                         <a href="dashboard.php">Admin Dashboard</a>
-                        <a href="under_construction.php">Profile</a>
+                        <a href="user-editor.php">Profile</a>
                         <a href="../includes/logout.inc.php">Sign out</a>
                     <?php else: ?>
                         <a href="login.php">Sign in</a>
