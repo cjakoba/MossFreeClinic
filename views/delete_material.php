@@ -78,9 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["operation"]) && $_POST
     $post_id = $_POST["post_id"];
 
     $postView = new PostView();
-    $postType = $postView->fetchType();
+    $postType = $postView->fetchType($post_id);
     if($postType == "file") {
-        $filename = $postView->fetchContent();
+        $filename = $postView->fetchContent($post_id);
         unlink("../uploads/$filename");
     }
 
