@@ -69,10 +69,10 @@ class PostView extends PostModel
 			if($loggedIn) {
 				if($postInfo['post_type'] == "blog") {
 					echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
-					echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+					echo '<a href="delete_material.php?post_id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
 				} else if($postInfo['post_type'] == "file") {
 					echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
-					echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+					echo '<a href="delete_material.php?post_id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
 				} else {
 					echo 'Cannot edit or delete this material<br/><br/>';
 				}
