@@ -38,7 +38,7 @@ input[type="text"]{
 }
 
 input[type="number"] {
-    width: 5%;
+    width: auto;
     padding: 10px;
     margin-bottom: 15px;
     box-sizing: border-box;
