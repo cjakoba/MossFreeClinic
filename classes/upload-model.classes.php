@@ -50,4 +50,28 @@ class UploadModel extends Dbh
 
         $stmt = null;
     }
+	
+	public function createPostFromUpload($uploadTitle, $uploadFile) {
+		
+		$pdo = $this->connect();
+		
+		$post_title = $uploadTitle;
+		$post_content = $uploadFile;
+		$type = "file";
+		$status = "published";
+
+		$stmt = $pdo->prepare("INSERT INTO em_posts (post_title, post_author, post_date, post_type, post_content, post_status) 
+			VALUES (:post_title, :post_author, NOW(), :post_type, :post_content, :post_status)");
+
+		$stmt->execute([
+			'post_title' => $post_title,
+			'post_author' => 1,
+			'post_type' => $type,
+			'post_content' => $post_content,
+			'post_status' => $status,
+		]);
+		
+		$stmt = null;
+		return $pdo->lastInsertId();
+	}
 }
