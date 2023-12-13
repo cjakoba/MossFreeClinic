@@ -4,9 +4,9 @@
     include('layouts/header.php');
     include('layouts/navbar.php');
     include('../api/backendAPI.php');
-//$sessionManager = new SessionManager();
-//$sessionManager->startSession();
-//$sessionManager->checkLogin();
+$sessionManager = new SessionManager();
+$sessionManager->startSession();
+$sessionManager->checkLogin();
 ?>
 <!DOCTYPE html>
 <html>

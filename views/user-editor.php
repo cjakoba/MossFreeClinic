@@ -4,9 +4,9 @@
     include('layouts/header.php');
     include('layouts/navbar.php');
     include('../api/backendAPI.php');
-//$sessionManager = new SessionManager();
-//$sessionManager->startSession();
-//$sessionManager->checkLogin();
+$sessionManager = new SessionManager();
+$sessionManager->startSession();
+$sessionManager->checkLogin();
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,6 +82,40 @@
     $password = "homebasedb";
     $db = "homebasedb";
     $connection = mysqli_connect($servername, $username, $password, $db);
+    $sql = 'SELECT * FROM userdb WHERE userid = ' . $_SESSION['user_id'];
+    $results = mysqli_query($connection, $sql);
+    $row = mysqli_fetch_assoc($results);
+    if (!strcmp($row['user_type'], 'Admin')){
+        // Print error statements from check password
+    if (isset($_POST['newpass']) and checkPassword($_POST['newpass'])){
+        if (checkPassword($_POST['newpass']) == 1){
+            echo "<p>Error password needs to be longer then 8 characters";
+        }
+        else if (checkPassword($_POST['newpass']) == 2){
+            echo "<p>Error password must contain at least one capital letter<p>";
+        }
+        else if (checkPassword($_POST['newpass']) == 3){
+            echo "<p>Error password must contain at least one number<p>";
+        }
+        unset($_POST['newpass']);
+    }
+        // Check if the user needs to update password
+        if (isset($_POST['newpass']) and !checkPassword($_POST['newpass']) and isset($_POST['newpass2']) and !strcmp($_POST['newpass'], $_POST['newpass2'])){
+            $hash = password_hash($_POST['newpass'], PASSWORD_BCRYPT);
+            // Run sql statement to update user
+            editUserPassword($_SESSION['user_id'], $hash, $connection);
+        }
+        else if (isset($_POST['newpass']) and !checkPassword($_POST['newpass'])){
+            echo "<p>ERROR passwords must match</p>";
+        }
+    echo "<form method=post>";
+    // Create way to change password
+    echo "<input type='password' name='newpass' placeholder='New Password'><br></br>";
+    echo "<input type='password' name='newpass2' placeholder='Retype New Password'><br></br>";
+    echo "<input type='submit'>";
+    echo "</form>";
+    }
+    else if (!strcmp($row['user_type'], 'Executive Admin')){
     // Print error statements from check password
     if (isset($_POST['newpass']) and checkPassword($_POST['newpass'])){
         if (checkPassword($_POST['newpass']) == 1){
@@ -114,8 +148,8 @@
         }
         // Delete user if secondary delete button was pressed
         else{
-            // Run delete from em_userdb
-            deleteuser($_POST['edituser'], $connection);
+            // Run delete from userdb
+            deleteUser($_POST['edituser'], $connection);
             // Unset user to edit
             unset($_POST['edituser']);
         }
@@ -208,6 +242,7 @@
             echo "<button type='submit' name='edituser' value='C'>Create user</button>";
             echo "</form>";
     }
+}
 }
 // close database connection
 mysqli_close($connection);

@@ -62,6 +62,9 @@
     // Include session and header of webpage
     include('layouts/header.php');
     include('layouts/navbar.php');
+    $sessionManager = new SessionManager();
+    $sessionManager->startSession();
+    $sessionManager->checkLogin();
     // Establish database connection
     $servername = "localhost";
     $questionname = "homebasedb";
