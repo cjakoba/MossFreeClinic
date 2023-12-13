@@ -46,14 +46,12 @@ $sessionManager->checkLogin();
                     <div class="col-lg-4 mb-4">
                         <div class="card" onclick="location.href='survey.php';">
                             <div class="card-title">Surveys</div>
-                            <div class="card-stat">1,234</div>
                             <div class="card-description">Manage survey, generate report of survey, or take survey.</div>
                         </div>
                     </div>
                     <div class="col-lg-4 mb-4">
                         <div class="card" onclick="location.href='user-editor.php';">
                             <div class="card-title">Accounts</div>
-                            <div class="card-stat">99.9%</div>
                             <div class="card-description">Manage user accounts.</div>
                         </div>
                     </div>

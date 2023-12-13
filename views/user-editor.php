@@ -52,7 +52,7 @@ $sessionManager->checkLogin();
     // Create way to change password
     echo "<input type='password' name='newpass' placeholder='New Password'><br></br>";
     echo "<input type='password' name='newpass2' placeholder='Retype New Password'><br></br>";
-    echo "<input type='submit'>";
+    echo "<button type='submit'>Submit</button>";
     echo "</form>";
     }
     else if (!strcmp($row['user_type'], 'Executive Admin')){
