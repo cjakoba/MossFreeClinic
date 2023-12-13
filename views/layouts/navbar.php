@@ -15,7 +15,7 @@ $loggedIn = $sessionManager->isLoggedIn();
                 <div class="navbar-links">
                     <a href="under_construction.php">Search Posts</a>
                     <a href="list_em_posts.php">View Posts</a>
-                    <a href="under_construction.php">Patient Care Survey</a>
+                    <a href="take-survey.php">Patient Care Survey</a>
                     <a href="https://mossfreeclinic.org/">Return to MossFreeClinic</a>
 
                     <?php if ($loggedIn): ?>

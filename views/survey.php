@@ -37,31 +37,21 @@ $sessionManager->checkLogin();
             <div class="row justify-content-center">
                 <div class="row col-11">
                     <div class="col-lg-4 mb-4">
-                        <div class="card" onclick="location.href='under_construction.php';">
-                            <div class="card-title">Posts</div>
-                            <div class="card-stat"><?php echo $numberOfPosts; ?> entries | <?php $postView->getTotalPostsForStatus("published"); ?> published | <?php $postView->getTotalPostsForStatus("draft"); ?> drafted</div>
-                            <div class="card-description">Edit, delete, and create new posts.</div>
+                        <div class="card" onclick="location.href='question-editor.php';">
+                            <div class="card-title">Questions</div>
+                            <div class="card-description">Edit, delete, and create new questions for the survey.</div>
                         </div>
                     </div>
                     <div class="col-lg-4 mb-4">
-                        <div class="card" onclick="location.href='survey.php';">
-                            <div class="card-title">Surveys</div>
-                            <div class="card-stat">1,234</div>
-                            <div class="card-description">Manage survey, generate report of survey, or take survey.</div>
+                        <div class="card" onclick="location.href='gen-report.php';">
+                            <div class="card-title">Generate report</div>
+                            <div class="card-description">Generate report of the survey.</div>
                         </div>
                     </div>
                     <div class="col-lg-4 mb-4">
-                        <div class="card" onclick="location.href='user-editor.php';">
-                            <div class="card-title">Accounts</div>
-                            <div class="card-stat">99.9%</div>
-                            <div class="card-description">Manage user accounts.</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card" onclick="location.href='under_construction.php';">
-                            <div class="card-title">File Management (Under Construction)</div>
-                            <div class="card-stat">99.9%</div>
-                            <div class="card-description">Upload and delete files to use throughout the site.</div>
+                        <div class="card" onclick="location.href='take-survey.php';">
+                            <div class="card-title">Take survey</div>
+                            <div class="card-description">Take the survey.</div>
                         </div>
                     </div>
                     <!-- ... Add more cards as needed -->
