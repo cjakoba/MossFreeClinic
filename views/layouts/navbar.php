@@ -1,5 +1,10 @@
 <?php
+if (file_exists('../classes/session-manager.classes.php')){
 include_once '../classes/session-manager.classes.php';
+}
+else if (file_exists('classes/session-manager.classes.php')){
+    include_once 'classes/session-manager.classes.php';
+    }
 $sessionManager = new SessionManager();
 $sessionManager->startSession();
 $loggedIn = $sessionManager->isLoggedIn();

@@ -68,7 +68,8 @@
     </head>
     <body>
         <div id="container">
-        <?php include('views/layouts/header.php');?>
+        <?php include('views/layouts/header.php');
+        include('views/layouts/navbar.php');?>
             <div id="content">
                 <div id="content-inner">
                     <h1>Welcome to the</br>Lloyd F. Moss Free Clinic</br>Database</h1>
