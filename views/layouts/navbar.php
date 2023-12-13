@@ -20,7 +20,7 @@ $loggedIn = $sessionManager->isLoggedIn();
 
                     <?php if ($loggedIn): ?>
                         <a href="dashboard.php">Admin Dashboard</a>
-                        <a href="under_construction.php">Profile</a>
+                        <a href="user-editor.php">Profile</a>
                         <a href="../includes/logout.inc.php">Sign out</a>
                     <?php else: ?>
                         <a href="login.php">Sign in</a>
