@@ -8,8 +8,8 @@ else if (file_exists('classes/session-manager.classes.php')){
 $sessionManager = new SessionManager();
 $sessionManager->startSession();
 $loggedIn = $sessionManager->isLoggedIn();
-if (file_exists('../classes/session-manager.classes.php')){
-echo '
+if (file_exists('../classes/session-manager.classes.php')):
+?>
 <header class="nav-bar">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -40,10 +40,7 @@ echo '
         </nav>
     </div>
 </header>
-';
-}
-else if (file_exists('classes/session-manager.classes.php')){
-    echo '
+<?php else: ?>
 <header class="nav-bar">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -74,7 +71,5 @@ else if (file_exists('classes/session-manager.classes.php')){
         </nav>
     </div>
 </header>
-';
-    }
-?>
+<?php endif;?>
 
