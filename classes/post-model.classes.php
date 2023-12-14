@@ -2,7 +2,6 @@
 
 class PostModel extends Dbh 
 {
-
     protected function getPostInfo($post_id) 
     {
         $stmt = $this->connect()->prepare('SELECT * FROM em_posts WHERE post_id = ?;');

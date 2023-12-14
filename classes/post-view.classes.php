@@ -69,15 +69,58 @@ class PostView extends PostModel
 			if($loggedIn) {
 				if($postInfo['post_type'] == "blog") {
 					echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
-					echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+					echo '<a href="delete_material.php?post_id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
 				} else if($postInfo['post_type'] == "file") {
 					echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
-					echo '<a href="../api/delete_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+					echo '<a href="delete_material.php?post_id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
 				} else {
 					echo 'Cannot edit or delete this material<br/><br/>';
 				}
 			}
             echo '</div>';
+        }
+    }
+
+    /**
+     * Fetches exact same info as fetchPagePostsTitleAndDescription(), but only if the post title matches the given string $title.
+     * @param $title The user's search word.
+     * @param int $page Current page number.
+     * @param int $postsPerPage The maximum number of posts to display per page.
+     * @throws Exception when sql statement is invalid.
+     */
+    public function fetchMatchingPagePostsTitleAndDescription($searchedString, int $page, int $postsPerPage, bool $loggedIn)
+    {
+        // Fetch all posts and all posts' columns within specified range.
+        $postsInfo = $this->getPagePostsInfo($page, $postsPerPage);
+        
+        // When no posts are found, notify the user.
+        if (!$postsInfo)
+        {
+            echo '<p>No materials found.</p>';
+            exit();
+        }
+
+        // Otherwise display to the user all posts for the specific page and posts per page.
+        foreach ($postsInfo as $postInfo)
+        {
+            $postTitle = $postInfo['post_title'];
+
+            //change both strings to lower case to make the search case-insensitive
+            $postTitle = strtolower($postTitle);
+            $searchedString = strtolower($searchedString);
+
+            //only show the posts with titles that match the given string
+            if (str_contains($postTitle, $searchedString))
+            {
+                echo '<div class="post-card">';
+                echo '<h2><a href="view_material.php?id=' . $postInfo['post_id'] . '"' . ' class="post-card-link">' . $postInfo['post_title'] . '</a></h2>';
+                echo '<p>' . $this->fetchDescription($postInfo['post_id'], 200) . '</p>';
+			    if($loggedIn) {
+				    echo '<a href="edit_material.php?id=' . $postInfo['post_id'] . '"><button class="btn-custom">Edit</button></a> ';
+				    echo '<a href="delete_material.php?post_id=' . $postInfo['post_id'] . '"><button class="btn-custom">Remove</button></a><br/><br/>';
+			    }
+                echo '</div>';
+            }
         }
     }
 
