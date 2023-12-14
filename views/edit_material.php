@@ -50,7 +50,7 @@ try {
 // Check if $post_id is set and is a valid number
 if (isset($post_id) && is_numeric($post_id)) {
     // Prepare the statement with parameter placeholders
-    $stmt = $pdo->prepare("SELECT post_title, post_content, post_id FROM em_posts WHERE post_id = :post_id");
+    $stmt = $pdo->prepare("SELECT post_title, post_content, post_id, post_type FROM em_posts WHERE post_id = :post_id");
 
     // Execute the statement with the actual parameter value
     $stmt->execute(['post_id' => $post_id]);
@@ -96,6 +96,7 @@ if (isset($post_id) && is_numeric($post_id)) {
                 <!-- Draft Post -->
                 <a id="draftButton" class="btn btn-primary">Save as Draft</a>
                 <script>
+					<?php if($posts[0]['post_type'] == "blog"):?>
                     // editor-setup.js
                     const editor = new EditorJS({
                         autofocus: !0,
@@ -124,10 +125,10 @@ if (isset($post_id) && is_numeric($post_id)) {
                         },
                         data: <?php echo $posts[0]['post_content'] ?? null; ?>,
                     });
-
+					
                     var titleInput = document.getElementById('post-editor-title');
                     var postId = <?php echo $post_id; ?>
-
+					
                     function saveData() {
                         if (titleInput.value.trim() === '') {
                             event.preventDefault();
@@ -165,6 +166,9 @@ if (isset($post_id) && is_numeric($post_id)) {
                                 console.error('Error:', error);
                             });
                     }
+					<?php else: ?>
+					document.getElementById('editorjs').innerHTML = "Cannot Edit this File!<br/><br/>";
+					<?php endif;?>
                 </script>
             </div>
         </div>

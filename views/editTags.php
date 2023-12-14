@@ -1,84 +1,29 @@
 <?php
 
 // Include session and header of webpage
-    include('session.php');
-    include('header.php');
-        
+    include('layouts/header.php');
+    include('layouts/navbar.php');
+    include('../api/backendAPI.php');
+    
     // Check if the user has the necessary permissions
-    if (!isset($_SESSION['permissions']) || $_SESSION['permissions'] < 3) {
-        die("You do not have permission to access this page.");
-    }
+    $sessionManager->startSession();
+    $sessionManager->checkLogin();
 ?>
 <!DOCTYPE html>
 <html>
     <head>
     <link rel="stylesheet" href="styles.css" type="text/css" />
     <!-- Style rules for webpage-->
-        <style>
-        h1 {
-                color: #4b6c9e;
-                font-size: 36px;
-                margin-bottom: 20px;
-                text-align: center;
-                margin: 0 auto;
-            }
-            input[type="text"]{
-                width: 25%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
-            input[type="checkbox"]{
-                width: 5%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
-            table{
-                width: 100%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-                background-color: lightskyblue;
-            }
-            td{
-                width: 10%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
-            th{
-                width: 10%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
-            button{
-                width: 25%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 3px solid #cccccc;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-                background-color:lightblue;
-            }
-            </style> 
+    <link rel="stylesheet" href="../css/editor.css" type="text/css" />
     </head>
     <h1>Edit tag</h1>
     <?php
     // Import and establish database connection
-    include_once('database/dbinfo.php');
-    $connection = connect();
+    $servername = "localhost";
+    $username = "homebasedb";
+    $password = "homebasedb";
+    $db = "homebasedb";
+    $connection = mysqli_connect($servername, $username, $password, $db);
     // Check if new tag should be created
     if (isset($_POST['edittag']) and strcmp($_POST['edittag'], 'C') == 0 and strlen($_POST['newtag']) > 0){
         // Run sql statement to add new tag with name given by user
@@ -249,7 +194,7 @@
     // Else runs if a tag has not been set to be edited
     } else {
         // Get information about tags to create a list
-        $sql = "SELECT * FROM tagdb";
+        $sql = "SELECT * FROM tagdb ORDER BY tag_name";
         $results = mysqli_query($connection, $sql);
         if (mysqli_num_rows($results) > 0) {
             // Create form to allow user to enter edit mode
@@ -273,7 +218,7 @@
     }
 }
 // Include footer of webpage
-include('footer.php'); 
+include('layouts/footer.php'); 
 ?>
 
 </html>

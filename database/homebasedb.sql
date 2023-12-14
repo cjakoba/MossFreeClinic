@@ -1,6 +1,4 @@
-DROP TABLE IF EXISTS survey_questiondb;
-DROP TABLE IF EXISTS question_responsedb;
-DROP TABLE IF EXISTS survey_responsedb;
+DROP TABLE IF EXISTS responsedb;
 DROP TABLE IF EXISTS em_tagdb;
 DROP TABLE IF EXISTS em_categorydb;
 DROP TABLE IF EXISTS ratingdb;
@@ -11,6 +9,7 @@ DROP TABLE IF EXISTS surveydb;
 DROP TABLE IF EXISTS questiondb;
 DROP TABLE IF EXISTS tagdb;
 DROP TABLE IF EXISTS categorydb;
+DROP TABLE IF EXISTS answerdb;
 
 -- phpMyAdmin SQL Dump
 -- version 5.2.0
@@ -115,14 +114,6 @@ VALUES
 (4, '123456', 1, '2023-11-14 21:53:01', 'blog', 
 '{\"time\":1700016781799,\"blocks\":[{\"id\":\"qbIa5baeUG\",\"type\":\"paragraph\",\"data\":{\"text\":\"test\"}},{\"id\":\"p9zyW0iP8C\",\"type\":\"paragraph\",\"data\":{\"text\":\"test12\"}}],\"version\":\"2.28.2\"}', 
 'published');
-/*,
-(5, 'Bone Diseases', 1, '2023-10-31 12:00:00', 'blog', 'Bones', 'published'),
-(6, 'Heart Surgery', 1, '2023-10-31 12:00:00', 'blog', 'Everything you need to know about Open Heart Surgery', 'published'),
-(7, 'Cardiovascular Exercises', 1, '2023-10-31 12:00:00', 'blog', 'Best exercises for your cardiovascular system', 'published'),
-(8, 'Bone Diseases', 1, '2023-10-31 12:00:00', 'blog', 'Bones', 'published'),
-(9, 'Heart Surgery', 1, '2023-10-31 12:00:00', 'blog', 'Everything you need to know about Open Heart Surgery', 'published'),
-(10, 'Cardiovascular Exercises', 1, '2023-10-31 12:00:00', 'blog', 'Best exercises for your cardiovascular system', 'published');
-*/
 -- --------------------------------------------------------
 
 --
@@ -137,24 +128,15 @@ CREATE TABLE `em_tagdb` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questiondb`
+-- Table structure for table `answerdb`
 --
 
-CREATE TABLE `questiondb` (
-  `question_id` int(11) NOT NULL,
-  `question_type` varchar(50) DEFAULT NULL,
-  `question` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `question_responsedb`
---
-
-CREATE TABLE `question_responsedb` (
-  `question_id` int(11) DEFAULT NULL,
-  `response_id` int(11) DEFAULT NULL
+CREATE TABLE `answerdb` (
+  answerID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  questionID INT,
+  answer VARCHAR(250),
+  answer_priority int,
+  times_answered int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -205,24 +187,29 @@ CREATE TABLE `surveydb` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `survey_questiondb`
+-- Table structure for table `questiondb`
 --
 
-CREATE TABLE `survey_questiondb` (
-  `survey_id` int(11) DEFAULT NULL,
-  `question_id` int(11) DEFAULT NULL
+CREATE TABLE `questiondb` (
+    question_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    question_type VARCHAR(50),
+    question VARCHAR(500),
+    numAnswers int,
+    question_priority int,
+    times_answered int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `survey_responsedb`
+-- Table structure for table `responsedb`
 --
 
-CREATE TABLE `survey_responsedb` (
-  `response_id` int(11) NOT NULL,
-  `response_date` datetime DEFAULT NULL,
-  `survey_response_value` int(11) DEFAULT NULL
+CREATE TABLE `responsedb` (
+  responseID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  answer VARCHAR(500),
+  questionID INT,
+  surveyID INT(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -279,7 +266,7 @@ CREATE TABLE `userdb` (
 --
 
 INSERT INTO `userdb` (`userid`, `username`, `password`, `last_login`, `user_type`) VALUES
-(1, 'Admin', '$2y$10$RgviL.Wom0Cj8mZJUYm9ZuE29aFWZWmT9hwNAsEPOyOOMcqWuKc0K', '2023-11-13', 'admin'),
+(1, 'Admin', '$2y$10$RgviL.Wom0Cj8mZJUYm9ZuE29aFWZWmT9hwNAsEPOyOOMcqWuKc0K', '2023-11-13', 'Executive Admin'),
 (2, 'User1', 'Password1', '2023-10-31', 'exec'),
 (3, 'User2', 'Password2', '2023-10-31', 'exec'),
 (4, 'User3', 'Password3', '2023-10-31', 'exec'),
@@ -320,19 +307,6 @@ ALTER TABLE `em_tagdb`
   ADD KEY `em_tagdb_tag_id_fk` (`tag_id`);
 
 --
--- Indexes for table `questiondb`
---
-ALTER TABLE `questiondb`
-  ADD PRIMARY KEY (`question_id`);
-
---
--- Indexes for table `question_responsedb`
---
-ALTER TABLE `question_responsedb`
-  ADD KEY `questionid_fk` (`question_id`),
-  ADD KEY `response_id_fk` (`response_id`);
-
---
 -- Indexes for table `ratingdb`
 --
 ALTER TABLE `ratingdb`
@@ -354,19 +328,6 @@ ALTER TABLE `surveydb`
   ADD PRIMARY KEY (`survey_id`);
 
 --
--- Indexes for table `survey_questiondb`
---
-ALTER TABLE `survey_questiondb`
-  ADD KEY `survey_id_fk` (`survey_id`),
-  ADD KEY `question_id_fk` (`question_id`);
-
---
--- Indexes for table `survey_responsedb`
---
-ALTER TABLE `survey_responsedb`
-  ADD PRIMARY KEY (`response_id`);
-
---
 -- Indexes for table `tagdb`
 --
 ALTER TABLE `tagdb`
@@ -386,32 +347,25 @@ ALTER TABLE `userdb`
 -- AUTO_INCREMENT for table `categorydb`
 --
 ALTER TABLE `categorydb`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `em_posts`
 --
 ALTER TABLE `em_posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `questiondb`
---
-ALTER TABLE `questiondb`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ratingdb`
 --
 ALTER TABLE `ratingdb`
-  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `upload_db`
 --
 ALTER TABLE `upload_db`
   MODIFY `upload_id` int(11) NOT NULL AUTO_INCREMENT;
-
 
 --
 -- AUTO_INCREMENT for table `surveydb`
@@ -420,22 +374,16 @@ ALTER TABLE `surveydb`
   MODIFY `survey_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `survey_responsedb`
---
-ALTER TABLE `survey_responsedb`
-  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tagdb`
 --
 ALTER TABLE `tagdb`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `userdb`
 --
 ALTER TABLE `userdb`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -462,13 +410,6 @@ ALTER TABLE `em_tagdb`
   ADD CONSTRAINT `em_tagdb_tag_id_fk` FOREIGN KEY (`tag_id`) REFERENCES `tagdb` (`tag_id`);
 
 --
--- Constraints for table `question_responsedb`
---
-ALTER TABLE `question_responsedb`
-  ADD CONSTRAINT `questionid_fk` FOREIGN KEY (`question_id`) REFERENCES `questiondb` (`question_id`),
-  ADD CONSTRAINT `response_id_fk` FOREIGN KEY (`response_id`) REFERENCES `survey_responsedb` (`response_id`);
-
---
 -- Constraints for table `ratingdb`
 --
 ALTER TABLE `ratingdb`
@@ -479,14 +420,6 @@ ALTER TABLE `ratingdb`
 --
 ALTER TABLE `upload_db`
   ADD CONSTRAINT `em_post_upload_fk` FOREIGN KEY (`em_post_id`) REFERENCES `em_posts` (`post_id`);
-
---
--- Constraints for table `survey_questiondb`
---
-ALTER TABLE `survey_questiondb`
-  ADD CONSTRAINT `question_id_fk` FOREIGN KEY (`question_id`) REFERENCES `questiondb` (`question_id`),
-  ADD CONSTRAINT `survey_id_fk` FOREIGN KEY (`survey_id`) REFERENCES `surveydb` (`survey_id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

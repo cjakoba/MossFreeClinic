@@ -15,15 +15,36 @@ CREATE TABLE IF NOT EXISTS surveydb(
 CREATE TABLE IF NOT EXISTS questiondb(
     question_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     question_type VARCHAR(50),
-    question BLOB
+    question VARCHAR(500),
+    numAnswers int,
+    question_priority int,
+    times_answered int
     );
 
-CREATE TABLE IF NOT EXISTS survey_responsedb(
-    response_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    response_date DATETIME,
-    survey_response_value INT(11)
+CREATE TABLE IF NOT EXISTS answerdb(
+    answerID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    questionID INT,
+    answer VARCHAR(250),
+    answer_priority int,
+    times_answered int
+);
+
+CREATE TABLE IF NOT EXISTS responsedb(
+    responseID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    answer VARCHAR(500),
+    questionID INT,
+    surveyID INT(11)
     );
 
+CREATE TABLE IF NOT EXISTS ratingdb(
+    rating_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    rating INT(1),
+    em_post_id INT,
+    CONSTRAINT em_post_rating_fk
+    FOREIGN KEY (em_post_id)
+    REFERENCES em_posts (post_id)
+    );
+    
 CREATE TABLE IF NOT EXISTS tagdb(
     tag_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     tag_name VARCHAR(50)
@@ -47,15 +68,6 @@ CREATE TABLE IF NOT EXISTS em_posts(
     REFERENCES userdb (userid)
     );
 
-CREATE TABLE IF NOT EXISTS ratingdb(
-    rating_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    rating INT(1),
-    em_post_id INT,
-    CONSTRAINT em_post_rating_fk
-    FOREIGN KEY (em_post_id)
-    REFERENCES em_posts (post_id)
-    );
-
 CREATE TABLE IF NOT EXISTS em_tagdb(
     post_id INT NOT NULL,
     tag_id INT NOT NULL,
@@ -77,26 +89,3 @@ CREATE TABLE IF NOT EXISTS em_categorydb(
     FOREIGN KEY (category_id)
     REFERENCES categorydb (category_id)
     );
-
-CREATE TABLE IF NOT EXISTS survey_questiondb(
-    survey_id INT,
-    question_id INT,
-    CONSTRAINT survey_id_fk
-    FOREIGN KEY (survey_id)
-    REFERENCES surveydb (survey_id),
-    CONSTRAINT question_id_fk
-    FOREIGN KEY (question_id)
-    REFERENCES questiondb (question_id)
-    );
-
-CREATE TABLE IF NOT EXISTS question_responsedb(
-    question_id INT,
-    response_id INT,
-    CONSTRAINT questionid_fk
-    FOREIGN KEY (question_id)
-    REFERENCES questiondb (question_id),
-    CONSTRAINT response_id_fk
-    FOREIGN KEY (response_id)
-    REFERENCES survey_responsedb (response_id)
-    );
-
