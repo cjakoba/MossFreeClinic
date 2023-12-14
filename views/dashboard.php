@@ -56,8 +56,8 @@ $sessionManager->checkLogin();
                         </div>
                     </div>
                     <div class="col-lg-4 mb-4">
-                        <div class="card" onclick="location.href='under_construction.php';">
-                            <div class="card-title">File Management (Under Construction)</div>
+                        <div class="card" onclick="location.href='upload_material.php';">
+                            <div class="card-title">File Management</div>
                             <div class="card-stat">99.9%</div>
                             <div class="card-description">Upload and delete files to use throughout the site.</div>
                         </div>
