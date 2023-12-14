@@ -4,6 +4,7 @@ require_once "../classes/post-model.classes.php";
 require_once "../classes/post-view.classes.php";
 require_once "../classes/text-utility.classes.php";
 require_once '../classes/session-manager.classes.php';
+
 $sessionManager = new SessionManager();
 $sessionManager->startSession();
 $permissions = $sessionManager->getSessionData('user_id');
@@ -13,6 +14,7 @@ $postPerPage = 10;
 $totalPosts = $postView->getTotalPosts();
 $maxPages = ceil($totalPosts / $postPerPage);
 $pageNumber = NULL;
+
 if(isset($_GET['page']))
 {
 	$pageNumber = filter_var($_GET['page'], FILTER_VALIDATE_INT, [
@@ -43,7 +45,7 @@ if(isset($_GET['page']))
             <!-- Page heading and sub-heading -->
             <div class="row mb-2 justify-content-center">
                 <div class="col-11">
-                    <h1 id="title">Educational Material Posts</h1>
+                    <h1 id="title">Search For Posts</h1>
                     <hr>
                 </div>
             </div>
@@ -53,34 +55,49 @@ if(isset($_GET['page']))
                 <div class="col-lg-11">
                     <div id="content">
 						<nav>
-							<?php if($pageNumber > 1):?>
-								<a href="?page=<?= $pageNumber - 1;?>">&#8249; Previous</a>
-							<?php else:?>
-								&#8249;
-								Previous
-							<?php endif;?>
-							<?php if($pageNumber < $maxPages):?>
-								<a href="?page=<?= $pageNumber + 1;?>">Next &#8250;</a>
-							<?php else:?>
-								Next
-								&#8250;
-							<?php endif;?>
-							<br/><br/>
-						</nav>
-                        <?php $postView->fetchPagePostsTitleAndDescription($pageNumber,$postPerPage,$loggedIn) ?>
-						<nav>
-							<?php if($pageNumber > 1):?>
-								<a href="?page=<?= $pageNumber - 1;?>">&#8249; Previous</a>
-							<?php else:?>
-								&#8249;
-								Previous
-							<?php endif;?>
-							<?php if($pageNumber < $maxPages):?>
-								<a href="?page=<?= $pageNumber + 1;?>">Next &#8250;</a>
-							<?php else:?>
-								Next
-								&#8250;
-							<?php endif;?>
+							<!-- Sumbit form -->
+							<form action="" method="GET">
+								<div class="input-group mb-3">
+									<input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search'];} ?>" class="form-control" placeholder="What are you searching for?">
+									<button type="submit" class="btn-custom">Search</button>
+								</div>
+							</form>
+							
+							<!-- if the search button was clicked -->
+							<?php if (isset($_GET['search'])) {
+								$searchedString = $_GET['search'];
+							} else {
+								$searchedString = "";
+							} ?>
+
+								<!-- navigate prev/next pages -->
+								<nav>
+									<?php if($pageNumber > 1):?>
+										<a href="?page=<?= $pageNumber - 1;?>">&#8249; Previous</a>
+									<?php else:?>
+										&#8249;
+										Previous
+									<?php endif;?>
+									<?php if($pageNumber < $maxPages):?>
+										<a href="?page=<?= $pageNumber + 1;?>">Next &#8250;</a>
+									<?php else:?>
+										Next
+										&#8250;
+									<?php endif;?>
+									<br/><br/>
+								</nav>
+
+								<!-- display the relevant posts -->
+								<?php $postView->fetchMatchingPagePostsTitleAndDescription($searchedString, $pageNumber, $postPerPage, $loggedIn); ?>
+							
+								<nav>
+									<?php if($pageNumber > 1):?>
+										<a href="?page=<?= $pageNumber - 1;?>">Previous</a>
+									<?php endif;?>
+									<?php if($pageNumber < $maxPages):?>
+										<a href="?page=<?= $pageNumber + 1;?>">Next</a>
+									<?php endif;?>
+								</nav>
 						</nav>
                     </div>
                 </div>
