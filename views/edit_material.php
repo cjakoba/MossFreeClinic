@@ -61,6 +61,7 @@ if (isset($post_id) && is_numeric($post_id)) {
     // Handle the case where post_id is not set or invalid
     $posts = []; // or handle this scenario as needed
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -94,7 +95,6 @@ if (isset($post_id) && is_numeric($post_id)) {
                 <a id="saveButton" class="btn btn-primary">Update Post</a>
                 <!-- Draft Post -->
                 <a id="draftButton" class="btn btn-primary">Save as Draft</a>
-
                 <script>
 					<?php if($posts[0]['post_type'] == "blog"):?>
                     // editor-setup.js
@@ -112,6 +112,16 @@ if (isset($post_id) && is_numeric($post_id)) {
                                 inlineToolbar: true
                             },
                             embed: Embed,
+                            image: {
+                                  class: ImageTool,
+                                  config: {
+                                    endpoints: {
+                                      byFile: '../api/upload.php',
+                                      byUrl: 'http://localhost/api/upload.php',
+                                      types: 'image/jpeg, image/jpg, image/png',
+                                    },
+                                  },
+                            },
                         },
                         data: <?php echo $posts[0]['post_content'] ?? null; ?>,
                     });

@@ -20,6 +20,7 @@ $permissions = $sessionManager->getSessionData('user_id');
 
     <!-- Main Content -->
     <main>
+        
         <div class="container my-4">
             <!-- Page heading and sub-heading -->
             <div class="row mb-2 justify-content-center">
@@ -40,7 +41,7 @@ $permissions = $sessionManager->getSessionData('user_id');
                     <a id="saveButton" class="btn btn-primary">Publish Post</a>
                     <!-- Draft Post -->
                     <a id="draftButton" class="btn btn-primary">Save as Draft</a>
-
+                    
                     <script src="../js/editor-setup.js"></script>
                 </div>
             </div>
