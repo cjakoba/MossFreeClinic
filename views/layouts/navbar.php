@@ -18,16 +18,17 @@ if (file_exists('../classes/session-manager.classes.php')):
                     <img src="../img/logo.png" alt="Clinic logo">
                 </a>
                 <div class="navbar-links">
-                    <a href="under_construction.php">Search Posts</a>
-                    <a href="list_em_posts.php">View Posts</a>
-                    <a href="take-survey.php">Patient Care Survey</a>
                     <a href="https://mossfreeclinic.org/">Return to MossFreeClinic</a>
 
                     <?php if ($loggedIn): ?>
                         <a href="dashboard.php">Admin Dashboard</a>
+                        <a href="posts.php">Posts</a>
+                        <a href="survey.php">Survey</a>
                         <a href="user-editor.php">Profile</a>
                         <a href="../includes/logout.inc.php">Sign out</a>
                     <?php else: ?>
+                        <a href="search_posts.php">Posts</a>
+                        <a href="take-survey.php">Survey</a>
                         <a href="login.php">Sign in</a>
                     <?php endif; ?>
                 </div>
@@ -49,16 +50,17 @@ if (file_exists('../classes/session-manager.classes.php')):
                     <img src="img/logo.png" alt="Clinic logo">
                 </a>
                 <div class="navbar-links">
-                    <a href="views/under_construction.php">Search Posts</a>
-                    <a href="views/list_em_posts.php">View Posts</a>
-                    <a href="views/take-survey.php">Patient Care Survey</a>
                     <a href="https://mossfreeclinic.org/">Return to MossFreeClinic</a>
 
                     <?php if ($loggedIn): ?>
                         <a href="views/dashboard.php">Admin Dashboard</a>
+                        <a href="views/posts.php">Posts</a>
+                        <a href="views/survey.php">Survey</a>
                         <a href="views/user-editor.php">Profile</a>
                         <a href="includes/logout.inc.php">Sign out</a>
                     <?php else: ?>
+                        <a href="views/search_posts.php">Posts</a>
+                        <a href="views/take-survey.php">Survey</a>
                         <a href="views/login.php">Sign in</a>
                     <?php endif; ?>
                 </div>
