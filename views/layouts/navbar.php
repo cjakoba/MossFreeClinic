@@ -18,9 +18,6 @@ if (file_exists('../classes/session-manager.classes.php')):
                     <img src="../img/logo.png" alt="Clinic logo">
                 </a>
                 <div class="navbar-links">
-                    <a href="search_posts.php">Search Posts</a>
-                    <a href="list_em_posts.php">View Posts</a>
-                    <a href="take-survey.php">Patient Care Survey</a>
                     <a href="https://mossfreeclinic.org/">Return to MossFreeClinic</a>
 
                     <?php if ($loggedIn): ?>
